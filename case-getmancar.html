@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getmancar Case Study — Mariia Hrezina</title>
+  <meta name="description" content="Growth design sprint for Getmancar — raising first-trip conversion from 8.6%.">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article">
+  <meta property="og:url"         content="https://mhrezina.com/case-getmancar.html">
+  <meta property="og:title"       content="Getmancar — Increasing First Trip Conversion · Mariia Hrezina">
+  <meta property="og:description" content="Growth design sprint for a carsharing app — raising first-trip conversion from 8.6% through UX research and targeted redesign.">
+  <meta property="og:image"       content="https://mhrezina.com/images/og-image.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Getmancar — Increasing First Trip Conversion · Mariia Hrezina">
+  <meta name="twitter:description" content="Growth design sprint for a carsharing app — raising first-trip conversion from 8.6%.">
+  <meta name="twitter:image"       content="https://mhrezina.com/images/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"       href="images/favicon.ico">
+  <link rel="icon" type="image/svg+xml"      href="images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180"    href="images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-pill" id="cursorPill"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-left">
+      <a class="nav-link js-nav-works" href="#">works</a>
+      <a class="nav-link js-nav-about" href="#">about</a>
+    </div>
+    <a class="nav-logo js-nav-home" href="index.html">
+      <img src="images/Hero/Mariia.svg" alt="Mariia Hrezina" class="nav-logo-svg">
+    </a>
+    <div class="nav-right">
+      <a class="nav-link js-nav-contacts" href="#">contacts</a>
+      <a class="nav-link" href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener">cv</a>
+    </div>
+  </nav>
+
+  <!-- ============ CASE HERO ============ -->
+  <section class="case-hero">
+
+
+    <h1 class="case-title reveal">
+      Carsharing app — Increasing first trip conversion
+    </h1>
+  </section>
+
+  <!-- ============ FULL-WIDTH HERO IMAGE ============ -->
+  <div class="case-hero-image">
+    <img src="images/getmancar/hero.png" alt="Getmancar — hero image">
+  </div>
+
+  <!-- ============ CASE CONTENT ============ -->
+  <div class="case-content">
+
+    <!-- Overview + Meta -->
+    <div class="case-overview reveal">
+      <p class="case-section-label">Overview</p>
+      <p class="case-text">
+        Getmancar is a carsharing service operating across Ukraine,
+        Georgia and Moldova. Users find a car on the map, unlock it
+        in the app, and pay per minute, hour or day — no paperwork,
+        no keys.
+      </p>
+
+      <div class="overview-meta">
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">My Role</span>
+          <p class="overview-meta-value">Product Designer<br>Research · Hypotheses · UX/UI</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">The Team</span>
+          <p class="overview-meta-value">3 designers</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">Timeline</span>
+          <p class="overview-meta-value">Feb–Mar 2026</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">Platform</span>
+          <p class="overview-meta-value">iOS app</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="case-section reveal">
+      <p class="case-section-label">The problem</p>
+      <div class="stat-block">
+        <span class="stat-number">8.6%</span>
+        <p class="stat-label">of new drivers completed their first trip after signing up</p>
+      </div>
+    </div>
+
+    <!-- Research -->
+    <div class="case-section reveal">
+      <h2 class="solution-title">Research</h2>
+      <div class="research-layout">
+        <p class="case-text">
+          We rode the cars ourselves, interviewed users, and analysed
+          competitors. The key insight: users weren't failing because of
+          bad intentions — they were failing because the app never gave
+          them a reason to stay.
+        </p>
+        <img
+          src="images/getmancar/testing-getmancar.png"
+          alt="Testing Getmancar"
+          class="research-image"
+        >
+      </div>
+    </div>
+
+    <!-- ======= SOLUTION 01 ======= -->
+    <div class="case-section reveal">
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title"><span class="solution-num">1.</span> Tariff selection as a separate step</h2>
+        </div>
+      </div>
+
+      <p class="case-text">
+        Users saw all tariff information dumped onto the car card —
+        prices, conditions, deposits — with no way to understand which
+        tariff made sense for their trip. Confusion led to drop-off.
+      </p>
+
+      <!-- Before / After -->
+      <div class="before-after-grid">
+        <div class="before-col">
+          <span class="ba-label ba-label-before">Before</span>
+          <div class="phones-row">
+            <div class="phone-frame">
+              <img src="images/getmancar/before-1.png" alt="Before — tariff overload on car card" class="phone-screen">
+            </div>
+          </div>
+        </div>
+        <div class="after-col">
+          <span class="ba-label ba-label-after">After</span>
+          <div class="phones-row">
+            <div class="phone-frame">
+              <img src="images/getmancar/after-1.png" alt="After — simplified car card" class="phone-screen">
+            </div>
+            <div class="phone-frame">
+              <img src="images/getmancar/after-2.png" alt="After — dedicated tariff selection step" class="phone-screen">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hypothesis -->
+      <div class="hypothesis-box">
+        <p class="hypothesis-label">Hypothesis</p>
+        <p class="hypothesis-text">If we separate tariff selection into its own step and let users calculate the cost based on their destination, more users will feel confident enough to book their first trip.</p>
+      </div>
+
+      <!-- Solution 1 -->
+      <div class="solution-block reveal">
+        <h3 class="solution-block-title">Simplified tariff selection</h3>
+        <ul class="solution-bullets">
+          <li>Removed excessive information from car cards</li>
+          <li>Moved tariff choice into a dedicated step</li>
+          <li>Displayed full tariff details on a separate screen</li>
+        </ul>
+        <div class="screens-container">
+          <div class="screens-container-inner">
+            <div class="screen-item">
+              <div class="phone-frame">
+                <img src="images/getmancar/after-1.png" alt="Simplified car card" class="phone-screen">
+              </div>
+              <p class="screen-caption">Simplified car card</p>
+            </div>
+            <div class="screen-item">
+              <div class="phone-frame">
+                <img src="images/getmancar/after-2.png" alt="Dedicated selection step" class="phone-screen">
+              </div>
+              <p class="screen-caption">Dedicated selection step</p>
+            </div>
+            <div class="screen-item">
+              <div class="phone-frame">
+                <img src="images/getmancar/full-tariff-details.png" alt="Full tariff details" class="phone-screen">
+              </div>
+              <p class="screen-caption">Full tariff details</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Solution 2 -->
+      <div class="solution-block reveal">
+        <h3 class="solution-block-title">Trip cost estimation for better decision-making</h3>
+        <ul class="solution-bullets">
+          <li>Introduced "Calculate your trip" feature</li>
+          <li>Provided upfront pricing based on route and distance</li>
+        </ul>
+        <div class="screens-container">
+          <div class="screens-container-inner">
+            <div class="screen-item">
+              <div class="phone-frame">
+                <img src="images/getmancar/calculate-trip-1.png" alt="Access trip calculator inline" class="phone-screen">
+              </div>
+              <p class="screen-caption">Access trip calculator inline</p>
+            </div>
+            <div class="screen-item">
+              <div class="phone-frame">
+                <img src="images/getmancar/calculate-trip-2.jpg" alt="Search destination" class="phone-screen">
+              </div>
+              <p class="screen-caption">Search destination</p>
+            </div>
+            <div class="screen-item">
+              <div class="phone-frame">
+                <img src="images/getmancar/calculate-trip-3.jpg" alt="Choose from suggestions" class="phone-screen">
+              </div>
+              <p class="screen-caption">Choose from suggestions</p>
+            </div>
+            <div class="screen-item">
+              <div class="phone-frame">
+                <img src="images/getmancar/calculate-trip-4.jpg" alt="View estimate & best tariff" class="phone-screen">
+              </div>
+              <p class="screen-caption">View estimate &amp; best tariff</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics-line">
+        <strong>Metrics we'd track:</strong> First ride conversion · Tariff selection rate · Drop-off at tariff selection
+      </div>
+    </div>
+
+    <!-- ======= SOLUTION 02 ======= -->
+    <div class="case-section reveal">
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title"><span class="solution-num">2.</span> Verification after car selection</h2>
+        </div>
+      </div>
+
+      <p class="case-text">
+        The flow forced verification right after sign-up, interrupting users before starting a trip.
+        Lack of clarity around timing and next steps reduced motivation, causing drop-off.
+      </p>
+
+      <!-- Hypothesis -->
+      <div class="hypothesis-box">
+        <p class="hypothesis-label">Hypothesis</p>
+        <p class="hypothesis-text">If we move verification after users choose a car and a tariff, and make the process more transparent with clear feedback and expectations, more users will feel motivated to complete verification and proceed to their first trip.</p>
+      </div>
+
+      <!-- Solution 1 -->
+      <div class="solution-block reveal">
+        <div class="solution-text-image">
+          <div class="solution-text-col">
+            <h3 class="solution-block-title">Verification triggered after car selection</h3>
+            <ul class="solution-bullets">
+              <li>Sign-in appears after the user selects a car and tariff</li>
+              <li>Users reach verification with clear intent to start a trip</li>
+              <li>Reduced drop-off at the identity verification step</li>
+            </ul>
+          </div>
+          <div class="solution-image-col">
+            <img src="images/getmancar/sign-in.png" alt="Sign-in screen after car selection" class="phone-screen">
+          </div>
+        </div>
+      </div>
+
+      <!-- Solution 2 -->
+      <div class="solution-block reveal">
+        <h3 class="solution-block-title">Streamlined document upload flow</h3>
+        <ul class="solution-bullets">
+          <li>Licence scan with clear progress indication</li>
+          <li>Car reserved during document review — no risk of losing the booking</li>
+          <li>Motion design used to reduce perceived wait time</li>
+        </ul>
+        <div class="solution-video-image">
+          <div class="solution-video-col">
+            <img src="images/getmancar/verification-1.jpg" alt="Verification step 1">
+          </div>
+          <div class="solution-video-col">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              class="solution-video js-lightbox-video"
+            >
+              <source src="images/getmancar/verification-2.mov" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics-line">
+        <strong>Metrics we'd track:</strong> Verification completion rate · First ride conversion · Drop-off during verification
+      </div>
+    </div>
+
+    <!-- ======= SOLUTION 03 ======= -->
+    <div class="case-section reveal">
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title"><span class="solution-num">3.</span> Solving the "no cars nearby" problem</h2>
+        </div>
+      </div>
+
+      <p class="case-text">
+        Almost half of verified users fail to start their first trip due to no nearby cars. Many drop off and switch to competitors.<br>
+        The product doesn't support users at this critical moment.
+      </p>
+
+      <!-- Hypothesis -->
+      <div class="hypothesis-box">
+        <p class="hypothesis-label">Hypothesis</p>
+        <p class="hypothesis-text">If we proactively notify users when a car becomes available nearby, we can increase return rate and drive more first and repeat bookings.</p>
+      </div>
+
+      <!-- Screens -->
+      <div class="h3-screens-row">
+        <div class="h3-screen-item">
+          <div class="phone-frame"><img src="images/getmancar/no-cars-around-1.png" alt="Notify when cars appear nearby" class="phone-screen"></div>
+          <p class="screen-caption">Notify when cars appear nearby</p>
+        </div>
+        <div class="h3-screen-item">
+          <div class="phone-frame"><img src="images/getmancar/no-cars-around-2.png" alt="Real-time search with clear progress" class="phone-screen"></div>
+          <p class="screen-caption">Real-time search with clear progress</p>
+        </div>
+        <div class="h3-screen-item">
+          <div class="phone-frame"><img src="images/getmancar/no-cars-around-3.png" alt="Show available car with quick access" class="phone-screen"></div>
+          <p class="screen-caption">Show available car with quick access</p>
+        </div>
+      </div>
+
+      <div class="metrics-line">
+        Metrics we'd track: Push opt-in rate · Return rate · First ride conversion
+      </div>
+    </div>
+
+  </div><!-- /case-content -->
+
+  <!-- Case switcher — rendered by shared component -->
+  <section class="case-switcher" id="csSwitcher"></section>
+  <script src="js/header.js"></script>
+  <script src="js/case-switcher.js"></script>
+  <script>CaseSwitcher.init({ currentCase: 'getmancar' });</script>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <a href="mailto:mariia.hrezina@gmail.com" class="footer-email full">
+        mariia.hrezina@gmail.com
+        <span class="email-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 117 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M41.6324 62.1264C31.4041 57.3291 9.72011 47.7347 4.81052 47.7347C-1.32647 47.7347 107.094 4.55957 111.185 4.55957C115.276 4.55957 84.5921 101.19 80.5008 107.357C76.4095 113.525 49.8159 66.2383 51.8615 64.1823C53.4981 62.5376 74.3638 44.3081 84.5921 35.3989" stroke="currentColor" stroke-width="9.11932" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <div class="footer-right">
+        <a href="mailto:mariia.hrezina@gmail.com" class="footer-email mobile">Email</a>
+        <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>
+      </div>
+
+      <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        Contact me ✦
+      </a>
+
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

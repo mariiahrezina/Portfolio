@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mariia Hrezina — Product Designer for SaaS, AI & Growth Products</title>
+  <meta name="description" content="Designing thoughtful interfaces for AI, healthcare, and growth-focused SaaS products.">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://mhrezina.com/">
+  <meta property="og:title"       content="Mariia Hrezina — Product Designer for SaaS, AI &amp; Growth Products">
+  <meta property="og:description" content="Designing thoughtful interfaces for AI, healthcare, and growth-focused SaaS products.">
+  <meta property="og:image"       content="https://mhrezina.com/images/og-image.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt"   content="Mariia Hrezina — Product Designer">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Mariia Hrezina — Product Designer for SaaS, AI & Growth Products">
+  <meta name="twitter:description" content="Designing thoughtful interfaces for AI, healthcare, and growth-focused SaaS products.">
+  <meta name="twitter:image"       content="https://mhrezina.com/images/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"       href="images/favicon.ico">
+  <link rel="icon" type="image/svg+xml"      href="images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180"    href="images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-pill" id="cursorPill"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-left">
+      <a class="nav-link js-nav-works" href="#">works</a>
+      <a class="nav-link js-nav-about" href="#">about</a>
+    </div>
+    <a class="nav-logo js-nav-home" href="index.html">
+      <img src="images/Hero/Mariia.svg" alt="Mariia Hrezina" class="nav-logo-svg">
+    </a>
+    <div class="nav-right">
+      <a class="nav-link js-nav-contacts" href="#">contacts</a>
+      <a class="nav-link" href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener">cv</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO — DRAGGABLE MOODBOARD ============ -->
+  <section class="hero" id="hero">
+
+    <!-- Central identity -->
+    <div class="hero-identity">
+      <svg class="hero-intro-svg" viewBox="0 0 1492 231" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hi! I'm Mariia Hrezina">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M1467 35.0625C1488.85 32.8385 1493.51 57.8536 1491.48 74.3633C1487.08 109.986 1460.96 137.487 1437.5 162.612C1433.37 166.142 1429.19 168.825 1424.93 172.299C1417.53 178.333 1410.39 196.339 1400.1 194.851C1393.87 188.551 1414.69 165.779 1419.5 160.025L1420.68 158.174C1419.89 155.12 1403.43 140.242 1399.82 136.535C1392.95 129.492 1386.72 121.849 1381.22 113.697C1370.84 98.2306 1363.74 82.3975 1367.25 63.4659C1372.62 34.472 1403.19 31.9087 1421.17 51.0723C1425.59 55.7954 1428.04 59.5711 1431.6 65.1124C1438.36 50.7947 1451.32 38.5358 1467 35.0625ZM1468.87 49.4141C1467.81 49.415 1466.75 49.4597 1465.69 49.5499C1451.63 57.4728 1445.94 68.9232 1440.35 83.5118C1438.32 88.779 1436.44 95.957 1430.14 95.7667C1419.6 90.7746 1416.05 43.191 1390.08 53.6377C1372.13 60.8629 1385.63 92.4757 1392.59 103.902C1406.29 123.582 1413.69 130.466 1430.85 146.428C1447.33 130.501 1460.28 115.702 1470.2 94.5401C1473.79 86.9016 1484.16 49.557 1468.87 49.4141Z" fill="#E794A6"/>
+        <path d="M817.977 0C831.855 2.00952 833.393 17.0952 835.188 28.9792C840.622 65.0354 842.224 101.866 845.005 138.21C845.595 145.912 847.989 166.109 843.578 172.375C840.382 174.215 841.414 174.224 838.172 173.956C835.161 172.041 833.835 169.377 833.347 165.852C828.641 131.978 828.107 97.1242 824.607 63.0996C823.097 48.4668 822.102 32.642 818.069 18.7254C803.316 46.8449 796.28 81.5157 786.326 111.515C783.498 120.053 779.216 142.915 768.93 143.732C764.021 142.574 761.305 138.691 759.085 134.403C747.657 112.248 737.509 29.723 723.971 17.3814C723.861 17.2783 723.741 17.1844 723.622 17.085C712.32 44.0299 711.473 112.212 708.352 143.391C707.736 152.431 707.795 161.547 706.918 170.566C706.308 176.847 704.236 179.6 697.807 179.369C695.375 178.111 694.171 176.557 693.275 173.989C689.431 162.972 700.666 54.0563 704.132 34.0854C705.479 26.3235 706.982 18.0488 710.606 10.9746C712.632 7.0218 715.789 2.70452 720.25 1.35779C723.272 0.444622 726.311 0.942617 729.027 2.50292C748.09 13.448 762.723 97.6213 768.847 120.547C778.314 87.7109 787.292 53.0971 800.452 21.6343C803.979 13.2124 809.145 3.41332 817.977 0Z" fill="#E794A6"/>
+        <path d="M552.645 77.3968C571.469 76.0003 575.303 91.7138 578.089 107.11C580.29 119.275 581.512 132.116 583.016 144.403C584.041 152.773 594.603 168.34 581.212 170.07C564.014 164.472 569.253 102.038 559.027 92.6343C558.242 91.9126 557.77 91.4809 556.695 91.5738C540.53 92.9758 527.854 154.304 517.807 166.882C515.879 169.296 513.674 170.847 510.556 171.109C496.062 172.325 498.042 108.65 486.509 98.7282C476.808 96.7518 467.828 126.835 465.175 134.707C462.433 143.015 455.537 176.019 449.723 179.841C447.206 181.496 445.08 181.56 442.209 180.991C441.134 180.454 440.352 179.78 439.746 178.737C435.242 170.993 429.246 100.483 431.681 91.7745C432.208 89.8902 433.741 87.819 435.58 87.0761C437.814 86.1731 438.66 86.6426 440.616 87.6533C445.665 94.1799 446.926 132.143 447.729 142.779C451.078 131.473 468.685 73.0381 491.671 84.1756C507.313 91.7534 508.176 125.752 512.847 142.023L513.071 141.377C520.146 121.085 532.742 87.0476 552.645 77.3968Z" fill="#E794A6"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M1249.89 81.1437C1263.1 79.5383 1264.59 82.8052 1273.88 91.2941C1274.65 92.0065 1279.35 92.9108 1280.77 93.257C1282.09 94.3119 1283.26 95.6113 1283.6 97.2609C1288.16 118.914 1289.59 141.667 1301.73 160.946C1304.39 165.149 1308.61 164.704 1310.05 170.969C1303.46 187.214 1287.49 166.948 1284.61 158.531C1281.99 150.906 1277.58 143.531 1276.14 135.163C1275.76 132.912 1274.72 129.539 1273.4 127.739L1272.24 129.196C1265.06 143.28 1242.35 184.851 1220.2 176.512C1201.31 169.401 1211.43 134.988 1217.33 121.505C1224.19 105.784 1232.77 88.2971 1249.89 81.1437ZM1266.93 101.157C1261.59 95.8045 1260.98 94.3031 1253.09 94.7072C1237.56 104.973 1228.96 129.361 1224.7 146.841C1223.61 151.329 1222.66 159.07 1226.02 162.655C1230.04 163.409 1231.14 162.07 1234.24 159.587C1250.49 143.624 1261.83 123.351 1266.93 101.157Z" fill="#E794A6"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M907.682 85.6677C920.897 84.9101 922.527 86.4507 932.501 96.0564C932.446 96.0012 936.949 96.6833 937.621 96.9226C944.693 99.4514 943.064 111.309 944.51 117.359C946.499 130.642 948.027 145.298 952.908 157.862C955.551 164.683 961.813 171.261 965.45 177.593C965.883 178.471 965.634 179.733 964.953 180.52C947.732 200.478 934.452 144.933 932.795 138.277L931.856 134.966C930.622 135.145 894.035 204.876 875.553 171.737C869.364 160.639 872.734 142.906 876.482 131.459C882.615 112.699 889.615 95.3424 907.682 85.6677ZM912.175 98.4197C897.763 107.68 891.62 129.644 887.439 145.35C886.095 150.395 883.572 163.982 890.81 164.786C893.444 163.421 893.831 163.168 895.985 161.141C910.839 145.462 921.642 126.097 925.372 104.695C920.104 99.7647 919.385 98.5329 912.175 98.4197Z" fill="#E794A6"/>
+        <path d="M5.9131 1.27588C18.5883 3.49528 14.087 20.7285 14.006 31.4195L13.8273 81.3472C13.8117 105.588 15.4564 129.834 16.7548 154.052C23.9682 137.888 45.6029 88.8127 69.2571 96.6345C88.2819 102.925 87.8786 150.232 92.1783 167.041C93.3469 171.61 97.7663 179.317 100.071 183.844C99.8024 186.526 99.1513 187.248 97.7193 189.436C90.353 193.639 85.4087 186.448 81.936 180.793C76.1795 165.658 72.8744 116.675 63.9978 111.093C43.1211 110.096 25.8763 184.772 15.9141 190.414C13.0528 192.035 10.4227 191.962 7.36535 191.062C0.979844 183.894 1.68894 145.828 1.29664 134.745C-0.0441916 95.4994 -0.345322 56.226 0.39416 16.9645C0.638198 8.2986 0.00829983 6.86257 5.9131 1.27588Z" fill="#E794A6"/>
+        <path d="M1033.07 79.2864C1040.6 78.7322 1054.79 81.04 1056.53 89.9498C1053.13 96.909 1044.11 93.0759 1038.15 91.5358C1007.59 101.655 1013.89 143.811 1010.21 168.911C1009.51 173.717 1007.75 175.092 1003.89 177.646C1002.35 177.359 997.239 176.255 996.677 174.655C992.386 162.49 986.225 100.039 995.977 93.3594L998.252 94.2772C1003.75 100.568 1003.21 101.488 1003.89 109.955C1010.17 93.9559 1015.5 84.5794 1033.07 79.2864Z" fill="#E794A6"/>
+        <path d="M1156.1 85.103C1161.17 85.1776 1164.96 86.8714 1165.45 92.4893C1167.75 118.521 1169.19 144.597 1172.42 170.539C1172.71 172.802 1169.37 175.913 1167.93 177.445C1153.72 177.914 1154.95 141.324 1153.76 130.784C1152.47 119.292 1149.76 93.9097 1156.1 85.103Z" fill="#E794A6"/>
+        <path d="M1092.55 85.0029C1094.23 85.5838 1099.51 88.0968 1099.74 90.0042C1103.05 116.372 1103.39 142.953 1108.99 169.019C1109.53 171.534 1106.16 174.635 1104.5 176.344C1085.37 172.921 1088.92 111.043 1087.65 95.4703C1087.3 91.0793 1089.39 88.0103 1092.55 85.0029Z" fill="#E794A6"/>
+        <path d="M339.851 93.3633C341.702 93.401 343.72 93.366 345.323 94.3989C352.036 98.7254 351.411 144.37 352.862 154.526C353.787 160.994 356.372 167.484 357.888 173.883C357.595 176.804 356.014 178.33 354.183 180.65C343.811 182.853 340.442 168.955 339.753 161.415C338.417 146.805 331.571 104.562 339.851 93.3633Z" fill="#E794A6"/>
+        <path d="M136.566 96.0347C138.315 96.2317 141.642 97.3022 142.888 98.6029C147.041 102.94 148.28 147.597 150.128 157.01C151.244 162.688 156.395 171.095 155.964 176.497C155.718 179.577 153.031 181.458 150.867 183.317C132.066 181.846 132.16 121.068 132.166 106.472C132.168 101.993 133.474 99.205 136.566 96.0347Z" fill="#E794A6"/>
+        <path d="M393.456 11.6626C416.264 15.8676 409.767 62.0183 394.371 74.3065C391.725 75.2031 391.407 75.2022 388.779 74.2531C384.579 68.4077 392.484 60.2831 393.482 50.4316C395.011 35.3175 391.109 31.384 389.115 17.0578C388.842 15.098 391.829 12.9182 393.456 11.6626Z" fill="#E794A6"/>
+        <path d="M222.876 166.166C245.758 169.923 230.201 219.716 219.332 230.506C215.985 231.111 215.564 231.055 212.863 229.792C209.764 223.432 220.747 200.292 220.187 190.784C219.833 184.758 220.811 179.019 218.594 172.156C218.044 170.453 221.559 167.37 222.876 166.166Z" fill="#E794A6"/>
+        <path d="M1153.65 25.5689C1158.61 23.3817 1164.39 25.5864 1166.63 30.5112C1168.87 35.437 1166.72 41.2464 1161.82 43.5349C1158.61 45.0363 1154.82 44.6956 1151.93 42.641C1149.04 40.5864 1147.46 37.1353 1147.82 33.6033C1148.18 30.0721 1150.4 27.004 1153.65 25.5689Z" fill="#E794A6"/>
+        <path d="M1089.55 25.5522C1092.94 24.2322 1096.79 24.9005 1099.53 27.2883C1102.28 29.6753 1103.47 33.3896 1102.65 36.9309C1101.81 40.4731 1099.07 43.2586 1095.55 44.1662C1090.53 45.4578 1085.37 42.6161 1083.78 37.683C1082.19 32.7498 1084.72 27.4329 1089.55 25.5522Z" fill="#E794A6"/>
+        <path d="M133.975 39.5029C137.148 38.1783 140.791 38.692 143.473 40.8423C146.155 42.9927 147.448 46.4373 146.842 49.8202C146.236 53.2041 143.83 55.986 140.568 57.0731C135.775 58.6711 130.576 56.1931 128.802 51.4643C127.027 46.7356 129.313 41.4499 133.975 39.5029Z" fill="#E794A6"/>
+        <path d="M339.879 39.3574C344.792 38.0668 349.832 40.9471 351.213 45.8333C352.593 50.7195 349.803 55.81 344.941 57.2782C341.717 58.2512 338.217 57.409 335.79 55.0754C333.362 52.741 332.384 49.2788 333.231 46.0202C334.08 42.7615 336.621 40.2135 339.879 39.3574Z" fill="#E794A6"/>
+      </svg>
+      <h1 class="hero-headline">Product <br class="mob-br">Designer</h1>
+      <span class="hero-badge">SaaS &nbsp;✦&nbsp; Growth &nbsp;✦&nbsp; AI</span>
+      <p class="hero-desc">designing complex workflows<br>that still feel human</p>
+    </div>
+
+    <!-- Drag hint -->
+    <div class="drag-hint" aria-hidden="true">✦ drag the cards</div>
+
+    <!-- === MOODBOARD CARDS === -->
+
+    <!-- 1. Music Player -->
+    <div class="moodboard-card js-player-card" data-rot="-3" style="top:clamp(70px,calc(50% - 360px),250px);left:clamp(60px,calc(50% - 540px),30%)">
+      <div class="mcard-inner card-player">
+        <a class="player-spotify-btn js-spotify-link" href="https://open.spotify.com/playlist/4JMUkujnx5ODhyd8csa0Ly?si=8aecb0a82ac84502" target="_blank" rel="noopener" aria-label="Open in Spotify">
+          <!-- Spotify logo -->
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.441 17.308a.748.748 0 01-1.03.25c-2.819-1.722-6.365-2.112-10.542-1.157a.748.748 0 01-.33-1.459c4.571-1.045 8.492-.595 11.653 1.337a.748.748 0 01.249 1.029zm1.452-3.23a.936.936 0 01-1.288.308c-3.226-1.983-8.144-2.558-11.96-1.399a.937.937 0 01-.543-1.791c4.358-1.322 9.776-.682 13.483 1.594a.937.937 0 01.308 1.288zm.125-3.362c-3.868-2.297-10.248-2.508-13.944-1.387a1.122 1.122 0 01-.651-2.147c4.242-1.287 11.29-1.038 15.743 1.605a1.122 1.122 0 01-1.148 1.929z"/></svg>
+          <!-- External link arrow -->
+          <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H4M8.5 1.5V6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="player-cover">
+          <img src="images/Hero/Focus.png" alt="Design Focus Music cover">
+        </div>
+        <div class="player-info">
+          <p class="player-title">Design Focus Music</p>
+          <p class="player-subtitle">My Playlist</p>
+        </div>
+        <div class="player-progress-wrap">
+          <span class="player-time">0:00</span>
+          <div class="player-progress-track">
+            <div class="player-progress-fill js-progress-fill" style="width:0%"></div>
+          </div>
+          <span class="player-time">−0:00</span>
+        </div>
+        <div class="player-controls">
+          <button class="player-btn js-prev" aria-label="Previous">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.5 3v10M12.5 3.5L7 8l5.5 4.5V3.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="player-btn player-btn-play js-play" aria-label="Play">
+            <svg class="icon-play" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="currentColor"/></svg>
+            <svg class="icon-pause" width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:none"><rect x="3.5" y="3" width="3" height="10" rx="1" fill="currentColor"/><rect x="9.5" y="3" width="3" height="10" rx="1" fill="currentColor"/></svg>
+          </button>
+          <button class="player-btn js-next" aria-label="Next">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12.5 3v10M3.5 3.5L9 8l-5.5 4.5V3.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Polaroid — user photo -->
+    <!-- hero-photo-cluster: display:contents on desktop (transparent), display:block on mobile (positioning context) -->
+    <div class="hero-photo-cluster">
+
+      <div class="moodboard-card js-polaroid-card" data-rot="-4" style="top:calc(50% + 230px);left:clamp(60px,calc(50% - 540px),30%)">
+        <div class="polaroid">
+          <div class="polaroid-img">
+            <img src="images/Hero/Photo.png" alt="it's me">
+          </div>
+          <p class="polaroid-caption">it's me</p>
+        </div>
+      </div>
+
+      <!-- 4. Experience badge (kept inside cluster for mobile grouping) -->
+      <!-- top:63% overlaps the polaroid's lower third; left offset overlaps polaroid's right edge -->
+      <div class="moodboard-card js-exp-card" data-rot="-2" style="top:calc(50% + 310px);left:clamp(140px,calc(50% - 430px),30%)">
+        <div class="card-exp">
+          <span class="exp-number">2</span>
+          <span class="exp-label">years in<br>design</span>
+        </div>
+      </div>
+
+    </div><!-- /.hero-photo-cluster -->
+
+    <!-- 3. Currently Reading -->
+    <div class="moodboard-card js-reading-card" data-rot="6" style="top:clamp(50px,calc(50% - 395px),220px);right:clamp(60px,calc(50% - 550px),30%)">
+      <div class="mcard-inner card-reading">
+        <p class="mcard-label">Currently Reading</p>
+        <div class="reading-list">
+          <div class="reading-row">
+            <img src="images/Hero/book-mom-test.png" alt="The Mom Test" class="reading-cover">
+            <div class="reading-info">
+              <p class="reading-title">The Mom Test</p>
+              <p class="reading-author">Rob Fitzpatrick</p>
+            </div>
+          </div>
+          <div class="reading-row">
+            <img src="images/Hero/book-ux-team.png" alt="The UX Team of One" class="reading-cover">
+            <div class="reading-info">
+              <p class="reading-title">The UX Team of One</p>
+              <p class="reading-author">Joe Natoli &amp; Leah Buley</p>
+            </div>
+          </div>
+          <div class="reading-row">
+            <img src="images/Hero/book-our-wives.png" alt="Our Wives Under The Sea" class="reading-cover">
+            <div class="reading-info">
+              <p class="reading-title">Our Wives Under The Sea</p>
+              <p class="reading-author">Julia Armfield</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Skills card -->
+    <div class="moodboard-card js-skills-card" data-rot="9" style="top:calc(50% + 230px);right:clamp(60px,calc(50% - 554px),30%)">
+      <div class="mcard-inner card-skills">
+        <p class="skills-title">skills</p>
+        <div class="skills-tags">
+          <span class="skill-tag">product thinking</span>
+          <span class="skill-tag">user behavior</span>
+          <span class="skill-tag">experimentation</span>
+          <span class="skill-tag">design systems</span>
+          <span class="skill-tag">interaction design</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shuffle widget — fixed center-bottom, not draggable -->
+    <div class="moodboard-card js-shuffle-card" data-rot="0" style="top:calc(50% + 270px);left:50%;margin-left:-50px">
+      <div class="mcard-inner card-shuffle">
+        <div class="shuffle-deck">
+          <div class="shuffle-mini shuffle-mini-3"></div>
+          <div class="shuffle-mini shuffle-mini-2"></div>
+          <div class="shuffle-mini shuffle-mini-1"></div>
+        </div>
+        <p class="shuffle-label">shuffle</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section class="work" id="work">
+    <div class="section-label reveal">
+      <span>Selected Work</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- Card 1: Getmancar -->
+      <a href="case-getmancar.html" class="card card-active reveal">
+        <div class="card-thumb card-thumb-getmancar">
+          <picture>
+            <source media="(max-width: 768px)" srcset="images/getmancar/getmancar-preview-mobile.png">
+            <img src="images/getmancar/getmancar-preview-desktop.png"
+                 alt="Getmancar case preview"
+                 style="display:block;width:100%;height:auto;">
+          </picture>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pink">Growth Design</span>
+            <span class="tag-gray">iOS</span>
+            <span class="tag-gray">Mobility</span>
+          </div>
+          <h3 class="card-title">Carsharing app — Increasing first trip conversion</h3>
+          <p class="card-desc">Only 8.6% of new drivers completed their first ride. We redesigned the critical moments that blocked them.</p>
+          <span class="card-link">View case →</span>
+        </div>
+      </a>
+
+      <!-- Card 2: OptiStream -->
+      <a href="case-optistream.html" class="card card-active reveal reveal-delay-1">
+        <div class="card-thumb card-thumb-optistream">
+          <picture>
+            <source media="(max-width: 768px)" srcset="images/optiSTREAM/optistream-preview-mobile.png">
+            <img src="images/optiSTREAM/optistream-preview-desktop.png"
+                 alt="OptiStream case preview"
+                 style="display:block;width:100%;height:auto;">
+          </picture>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pink">Product Design</span>
+            <span class="tag-gray">Web</span>
+            <span class="tag-gray">Healthcare</span>
+            <span class="tag-gray">AI</span>
+          </div>
+          <h3 class="card-title">Making document review faster with AI</h3>
+          <p class="card-desc">Redesigned complex workflows to reduce manual work and help teams review documents faster.</p>
+          <span class="card-link">View case →</span>
+        </div>
+      </a>
+
+      <!-- Card 3: Concert Archive Storefront -->
+      <a href="case-storefront.html" class="card card-active reveal reveal-delay-2">
+        <div class="card-thumb card-thumb-neutral">
+          <picture>
+            <source media="(max-width: 768px)" srcset="images/e-commerce/e-commerce-preview-mobile.png">
+            <img src="images/e-commerce/e-commerce-preview-desktop.png"
+                 alt="Concert archive storefront preview"
+                 style="display:block;width:100%;height:auto;">
+          </picture>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pink">Product Designer</span>
+            <span class="tag-gray">E-commerce</span>
+            <span class="tag-gray">Web</span>
+            <span class="tag-gray">End-to-end</span>
+          </div>
+          <h3 class="card-title">Built a concert archive storefront, cutting discovery time for dedicated fans</h3>
+          <p class="card-desc">Built a concert archive storefront, cutting discovery time for dedicated fans.</p>
+          <span class="card-link">View case →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ME ============ -->
+  <section class="about-me" id="about">
+    <div class="section-label reveal">
+      <span>About Me</span>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Row 1: intro text | Me portrait -->
+    <div class="about-row reveal">
+      <div class="about-text">
+        <p>I'm Mariia, a Product Designer from Ukraine, currently working at Provectus on an AI platform that streamlines workflows for healthcare billing teams in the US.</p>
+      </div>
+      <div class="about-images about-images-single">
+        <div class="about-polaroid" style="--rot: -3deg; --vy: 0px">
+          <div class="about-polaroid-img">
+            <img src="images/Hero/me.png" alt="Mariia" loading="lazy">
+          </div>
+          <div class="about-flag">🇺🇦</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Comms images | communication text -->
+    <div class="about-row reveal">
+      <div class="about-images about-images-double about-comms-images">
+        <div class="about-polaroid" style="--rot: -5deg; --vy: 0px">
+          <div class="about-polaroid-img">
+            <img src="images/Hero/comms1.png" alt="Communication" loading="lazy">
+          </div>
+        </div>
+        <div class="about-polaroid" style="--rot: 4deg; --vy: 22px">
+          <div class="about-polaroid-img">
+            <img src="images/Hero/comms2.png" alt="Communication" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="about-text about-comms-text">
+        <p>Before design, I spent years in communication — managing stakeholders, crafting narratives, writing, and constantly switching between contexts. It taught me how to bring clarity to complex systems and align product decisions — a skill I now apply in design.</p>
+      </div>
+    </div>
+
+    <!-- Row 3: interests text | 3 interests images -->
+    <div class="about-row reveal">
+      <div class="about-text">
+        <p>Outside of work, I find inspiration in simple things — walks, sports, learning new things in design, fiction books, and music.</p>
+      </div>
+      <div class="about-images about-images-triple">
+        <div class="about-polaroid" style="--rot: -4deg; --vy: 0px">
+          <div class="about-polaroid-img">
+            <img src="images/Hero/interest1.png" alt="Interests" loading="lazy">
+          </div>
+        </div>
+        <div class="about-polaroid" style="--rot: 2deg; --vy: 20px">
+          <div class="about-polaroid-img">
+            <img src="images/Hero/interest2.png" alt="Interests" loading="lazy">
+          </div>
+        </div>
+        <div class="about-polaroid" style="--rot: 6deg; --vy: 8px">
+          <div class="about-polaroid-img">
+            <img src="images/Hero/interest3.png" alt="Interests" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <a href="mailto:mariia.hrezina@gmail.com" class="footer-email full">
+        mariia.hrezina@gmail.com
+        <span class="email-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 117 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M41.6324 62.1264C31.4041 57.3291 9.72011 47.7347 4.81052 47.7347C-1.32647 47.7347 107.094 4.55957 111.185 4.55957C115.276 4.55957 84.5921 101.19 80.5008 107.357C76.4095 113.525 49.8159 66.2383 51.8615 64.1823C53.4981 62.5376 74.3638 44.3081 84.5921 35.3989" stroke="currentColor" stroke-width="9.11932" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <div class="footer-right">
+        <a href="mailto:mariia.hrezina@gmail.com" class="footer-email mobile">Email</a>
+        <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>
+      </div>
+
+      <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        Contact me ✦
+      </a>
+
+    </div>
+  </footer>
+
+  <!-- Image fullscreen modal (About me section only) -->
+  <div class="image-modal" id="imageModal">
+    <span class="image-modal-close">&times;</span>
+    <img class="image-modal-content" id="modalImage" alt="" />
+  </div>
+
+  <script src="js/header.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var modal    = document.getElementById('imageModal');
+      var modalImg = document.getElementById('modalImage');
+      var closeBtn = document.querySelector('.image-modal-close');
+
+      // Only images inside the About me section
+      document.querySelectorAll('.about-me img').forEach(function (img) {
+        img.addEventListener('click', function () {
+          modalImg.src = img.src;
+          modal.classList.add('open');
+        });
+      });
+
+      function closeModal() { modal.classList.remove('open'); }
+
+      closeBtn.addEventListener('click', closeModal);
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeModal();
+      });
+    })();
+  </script>
+</body>
+</html>

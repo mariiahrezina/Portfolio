@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Natera OptiStream Case Study — Mariia Hrezina</title>
+  <meta name="description" content="End-to-end design of an AI-powered healthcare document processing platform — OptiStream by Natera.">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article">
+  <meta property="og:url"         content="https://mhrezina.com/case-optistream.html">
+  <meta property="og:title"       content="OptiStream — Making Document Review Faster with AI · Mariia Hrezina">
+  <meta property="og:description" content="End-to-end design of an AI-powered healthcare document processing platform for Natera.">
+  <meta property="og:image"       content="https://mhrezina.com/images/og-image.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="OptiStream — Making Document Review Faster with AI · Mariia Hrezina">
+  <meta name="twitter:description" content="End-to-end design of an AI-powered healthcare document processing platform for Natera.">
+  <meta name="twitter:image"       content="https://mhrezina.com/images/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"       href="images/favicon.ico">
+  <link rel="icon" type="image/svg+xml"      href="images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180"    href="images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" as="image" href="images/optiSTREAM/Hero.png" fetchpriority="high">
+
+  <style>
+    /* ============================================================
+       OPTISTREAM — NEW COMPONENTS
+       All values use existing CSS variables from style.css.
+       ============================================================ */
+
+    /* --- Section heading — Nohemi, consistent with all other page headings --- */
+    .section-title-serif {
+      font-family: 'Nohemi', 'DM Sans', sans-serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 20px;
+      max-width: 680px;
+    }
+
+    /* ---- Key Challenges: 3-column card grid ---- */
+    .challenges-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    @media (max-width: 900px) {
+      .challenges-grid { grid-template-columns: 1fr; }
+    }
+
+    .challenge-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .challenge-num {
+      font-family: 'Nohemi', 'DM Sans', sans-serif;
+      font-size: 36px;
+      font-style: normal;
+      color: var(--border);
+      line-height: 1;
+    }
+
+    .challenge-title {
+      font-family: 'DM Sans', sans-serif;  /* card title — body font, heavier weight */
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .challenge-body {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .challenge-chip {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--accent-green);
+      background: var(--accent-green-light);
+      border-radius: 100px;
+      padding: 4px 12px;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    /* ---- Solution content mini-blocks ---- */
+    .sol-blocks {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Tighten block-title bottom margin inside sol-blocks only */
+    .sol-block .solution-block-title {
+      margin-bottom: 6px;
+    }
+
+    .sol-block-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    /* ---- Image placeholder ---- */
+    .img-placeholder {
+      background: #1A1916;
+      border-radius: var(--radius);
+      width: 100%;
+      display: block;
+    }
+
+    /* ---- Image caption ---- */
+    .img-caption {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.55;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ============================================================
+       INTERACTIVE PIPELINE STEPPER
+       ============================================================ */
+    .pipeline-wrapper {
+      margin-top: 40px;
+    }
+
+    .pipeline-stepper {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .pipeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .pipeline-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      border: 2px solid #E8E5DE;
+      background: #F8F6F1;
+      color: #B0AEA8;
+      transition: background 0.22s, border-color 0.22s, color 0.22s;
+      position: relative;
+      z-index: 1;
+    }
+    .pipeline-circle.active {
+      background: #1A5C3A;
+      border-color: #1A5C3A;
+      color: #fff;
+    }
+    .pipeline-circle.done {
+      background: #E8F4EE;
+      border-color: #1A5C3A;
+      color: #1A5C3A;
+    }
+
+    .pipeline-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 80px;
+      margin-top: 8px;
+      line-height: 1.3;
+    }
+
+    .pipeline-connector {
+      flex: 1;
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .pipeline-line {
+      width: 100%;
+      height: 2px;
+      background: #E8E5DE;
+      transition: background 0.22s;
+    }
+    .pipeline-line.done {
+      background: #1A5C3A;
+    }
+
+    .pipeline-card {
+      background: var(--bg-card);
+      border: 1px solid #E8E5DE;
+      border-radius: 12px;
+      padding: 22px 28px 20px;
+    }
+
+    .pipeline-card-num {
+      font-family: 'Nohemi', 'DM Sans', sans-serif;
+      font-size: 36px;
+      font-style: normal;
+      color: #E8E5DE;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .pipeline-card-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1A1916;
+      margin-bottom: 6px;
+    }
+
+    .pipeline-card-desc {
+      font-size: 13px;
+      color: #7A7870;
+      line-height: 1.6;
+    }
+
+    .pipeline-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .pipeline-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid;
+      transition: opacity 0.2s;
+      background: none;
+    }
+    .pipeline-btn-back {
+      border-color: #E8E5DE;
+      background: #F8F6F1;
+      color: #1A1916;
+    }
+    .pipeline-btn-next {
+      border-color: #1A5C3A;
+      background: #1A5C3A;
+      color: #fff;
+    }
+    .pipeline-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    @media (max-width: 640px) {
+      .pipeline-label { display: none; }
+      .pipeline-circle { width: 36px; height: 36px; font-size: 11px; }
+      .pipeline-connector { padding-top: 18px; }
+      .pipeline-card { padding: 18px 20px 16px; }
+    }
+
+    /* ============================================================
+       SCREEN STACK  — draggable product screenshot stack
+       ============================================================ */
+
+    .ss-wrap {
+      width: 100%;
+      max-width: 1240px;
+      margin: 72px auto 0;
+      box-sizing: border-box;
+      /* horizontal padding keeps rotated/translated cards off screen edges */
+      padding: 0 16px;
+    }
+
+    /* Stage: aspect ratio via both padding-bottom (fallback) + aspect-ratio (modern).
+       Using inset:0 on cards avoids the iOS Safari height:100% bug inside
+       padding-bottom containers. margin-bottom gives room for below-cards. */
+    .ss-stage {
+      position: relative;
+      width: 100%;
+      padding-bottom: 63%;      /* fallback: ~16:10 */
+      aspect-ratio: 16 / 10;   /* modern override — gives real height */
+      margin-bottom: 60px;
+      user-select: none;
+      -webkit-user-select: none;
+      overflow: visible;        /* never clip below-cards */
+    }
+
+    /* Cards fill the stage using inset:0 — works in all browsers including
+       iOS Safari where height:100% inside padding-bottom containers can fail */
+    .ss-card {
+      position: absolute;
+      inset: 0;                 /* top:0 right:0 bottom:0 left:0 */
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: grab;
+      will-change: transform, opacity;
+    }
+    .ss-card:active { cursor: grabbing; }
+
+    .ss-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Drag hint */
+    .ss-hint {
+      display: block;
+      position: static;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 22px;
+      margin-bottom: 0;
+      opacity: 0.7;
+    }
+
+    /* Tablet */
+    @media (max-width: 900px) {
+      .ss-wrap  { padding: 0 12px; }
+      .ss-stage { margin-bottom: 48px; }
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .ss-wrap {
+        padding: 0 8px;
+        margin-top: 48px;
+      }
+      .ss-stage {
+        padding-bottom: 65%;
+        aspect-ratio: 20 / 13;  /* slightly taller crop for narrow screens */
+        margin-bottom: 36px;
+      }
+      .ss-card {
+        border-radius: 10px;
+      }
+    }
+
+    /* ---- Lightbox ---- */
+    .cine-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 25, 22, 0.90);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .cine-lightbox.lb-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .cine-lightbox img {
+      max-width: 100%;
+      max-height: 88vh;
+      border-radius: var(--radius);
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+      object-fit: contain;
+      display: block;
+    }
+    .cine-lb-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      font-size: 26px;
+      color: #fff;
+      opacity: 0.65;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      line-height: 1;
+      padding: 4px;
+      transition: opacity 0.2s;
+    }
+    .cine-lb-close:hover { opacity: 1; }
+
+    /* ---- Mobile: static hero only ---- */
+    @media (max-width: 640px) {
+      .cinematic-scene  { display: block; }
+      .cinematic-hero   {
+        width: 100%;
+        opacity: 1 !important;
+        transform: none !important;
+        box-shadow: 0 12px 40px rgba(26, 25, 22, 0.18);
+      }
+      .cinematic-grid   { display: none; }
+    }
+
+    /* ---- SplitReveal ---- */
+    .sr-line-wrap {
+      display: block;
+      overflow: hidden;
+      line-height: inherit;
+    }
+    .sr-line {
+      display: block;
+      transform: translateY(108%);
+      opacity: 0;
+      will-change: transform, opacity;
+      transition:
+        transform 0.70s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity   0.48s ease;
+    }
+    .sr-line.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sr-line { transform: none; opacity: 1; transition: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-pill" id="cursorPill"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-left">
+      <a class="nav-link js-nav-works" href="#">works</a>
+      <a class="nav-link js-nav-about" href="#">about</a>
+    </div>
+    <a class="nav-logo js-nav-home" href="index.html">
+      <img src="images/Hero/Mariia.svg" alt="Mariia Hrezina" class="nav-logo-svg">
+    </a>
+    <div class="nav-right">
+      <a class="nav-link js-nav-contacts" href="#">contacts</a>
+      <a class="nav-link" href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener">cv</a>
+    </div>
+  </nav>
+
+  <!-- ============ CASE HERO ============ -->
+  <section class="case-hero">
+
+
+    <h1 id="heroTitle" class="case-title reveal">
+      Shifted manual workflows to AI-assisted review
+    </h1>
+  </section>
+
+  <!-- ============ FULL-WIDTH HERO IMAGE ============ -->
+  <div class="case-hero-image">
+    <img id="heroImg" src="images/optiSTREAM/Hero.png" alt="OptiStream — hero image" decoding="async" style="max-height: none; object-fit: contain; opacity: 0; transition: opacity 0.35s ease;">
+  </div>
+
+  <!-- ============ CASE CONTENT ============ -->
+  <div class="case-content">
+
+    <!-- ======= OVERVIEW ======= -->
+    <div class="case-overview reveal">
+      <p class="case-section-label">Overview</p>
+      <p class="case-text">
+        OptiStream is an AI-powered platform that automates
+        healthcare document processing, helping teams extract,
+        classify, and validate data faster while reducing
+        manual work.
+      </p>
+
+      <div class="overview-meta">
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">My Role</span>
+          <p class="overview-meta-value">Product Designer — end-to-end:<br>discovery, hypotheses,<br>workflow design, validation</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">The Team</span>
+          <p class="overview-meta-value">Cross-functional team:<br>PM, designers,<br>frontend/backend and ML engineers</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">Timeline</span>
+          <p class="overview-meta-value">June 2025 – Present<br>MVP in 3 months,<br>ongoing iterations</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">Platform</span>
+          <p class="overview-meta-value">Web Application</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======= SYSTEM & COMPLEXITY ======= -->
+    <div class="case-section reveal">
+      <p class="case-section-label">System &amp; Complexity</p>
+      <h2 class="section-title-serif">A 5-step pipeline. Each step designed from scratch.</h2>
+
+      <p class="case-text">
+        The system is built as a multi-step workflow where
+        each stage depends on the previous one — making early
+        errors costly and accuracy critical.
+        It combines AI automation with human validation,
+        requiring interfaces that balance speed, clarity,
+        and control.
+        Documents move through a pipeline: clustering,
+        classification, extraction, matching, and final
+        processing.
+      </p>
+
+      <!-- Interactive Pipeline -->
+      <div class="pipeline-wrapper" id="pipeline">
+        <div class="pipeline-stepper">
+
+          <div class="pipeline-step" data-step="0">
+            <div class="pipeline-circle active">1</div>
+            <span class="pipeline-label">Clustering</span>
+          </div>
+
+          <div class="pipeline-connector">
+            <div class="pipeline-line" data-line="0"></div>
+          </div>
+
+          <div class="pipeline-step" data-step="1">
+            <div class="pipeline-circle">2</div>
+            <span class="pipeline-label">Classification</span>
+          </div>
+
+          <div class="pipeline-connector">
+            <div class="pipeline-line" data-line="1"></div>
+          </div>
+
+          <div class="pipeline-step" data-step="2">
+            <div class="pipeline-circle">3</div>
+            <span class="pipeline-label">Data Extraction</span>
+          </div>
+
+          <div class="pipeline-connector">
+            <div class="pipeline-line" data-line="2"></div>
+          </div>
+
+          <div class="pipeline-step" data-step="3">
+            <div class="pipeline-circle">4</div>
+            <span class="pipeline-label">Tagging</span>
+          </div>
+
+          <div class="pipeline-connector">
+            <div class="pipeline-line" data-line="3"></div>
+          </div>
+
+          <div class="pipeline-step" data-step="4">
+            <div class="pipeline-circle">5</div>
+            <span class="pipeline-label">Matching</span>
+          </div>
+
+        </div><!-- /pipeline-stepper -->
+
+        <div class="pipeline-card">
+          <div class="pipeline-card-num" id="pipelineNum">01</div>
+          <div class="pipeline-card-title" id="pipelineTitle">Clustering</div>
+          <div class="pipeline-card-desc" id="pipelineDesc">
+            Before anything can be processed, documents need to be
+            sorted into logical batches. Wrong grouping here breaks
+            everything downstream.
+          </div>
+        </div>
+
+        <div class="pipeline-nav">
+          <button class="pipeline-btn pipeline-btn-back" id="pipelineBack" disabled>← Back</button>
+          <button class="pipeline-btn pipeline-btn-next" id="pipelineNext">Next →</button>
+        </div>
+      </div><!-- /pipeline-wrapper -->
+    </div>
+
+    <!-- ======= KEY CHALLENGES ======= -->
+    <div class="case-section reveal">
+      <p class="case-section-label">Key Challenges</p>
+
+      <div class="challenges-grid">
+
+        <div class="challenge-card">
+          <span class="challenge-num">01</span>
+          <h3 class="challenge-title">The most complex documents were processed manually, outside the platform</h3>
+          <p class="challenge-body">The goal: bring this complex type of documents into the platform and reduce manual effort significantly — without sacrificing accuracy.</p>
+          <span class="challenge-chip">High-complexity flow</span>
+        </div>
+
+        <div class="challenge-card">
+          <span class="challenge-num">02</span>
+          <h3 class="challenge-title">Reviewers had to validate many fields at once — but not all of them were relevant</h3>
+          <p class="challenge-body">Empty fields, irrelevant data, no way to customise the view. The interface showed everything — whether it mattered or not.</p>
+          <span class="challenge-chip">Configurable Workspace</span>
+        </div>
+
+        <div class="challenge-card">
+          <span class="challenge-num">03</span>
+          <h3 class="challenge-title">One work queue, many different use cases — manual setup every single session</h3>
+          <p class="challenge-body">Every reviewer started from scratch. No saved context, no shortcuts — just the same repetitive configuration, every time.</p>
+          <span class="challenge-chip">Saved Filters</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======= SOLUTION 01 ======= -->
+    <div class="case-section reveal">
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title"><span class="solution-num">1.</span> Handling the most complex financial document</h2>
+          <span class="challenge-chip">High-complexity flow</span>
+        </div>
+      </div>
+
+      <div class="sol-blocks">
+
+        <div class="sol-block">
+          <h3 class="solution-block-title">Two-tab structure</h3>
+          <p class="sol-block-desc">Mirroring the document's own structure makes the interface instantly familiar. Reviewers scan faster, context is never lost.</p>
+          <div style="display:flex; flex-direction:column; gap:24px;">
+            <img src="images/optiSTREAM/payment-summary-tab.png" alt="Payment Summary Tab" style="width:100%; height:auto; display:block; border-radius:var(--radius);">
+          </div>
+        </div>
+
+        <div class="sol-block">
+          <h3 class="solution-block-title">Error prevention flow</h3>
+          <p class="sol-block-desc">Auto-calculation at every step guides the reviewer toward a correct outcome. The interface won't allow validation until the numbers add up — errors caught before they happen.</p>
+          <video
+            src="images/optiSTREAM/tracker-logic.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            style="width:100%;height:auto;border-radius:var(--radius);display:block;"
+          ></video>
+        </div>
+
+        <div class="sol-block">
+          <h3 class="solution-block-title">Adding structured data without cluttering the table</h3>
+          <p class="sol-block-desc">The table stays clean. Complexity opens on demand. An elegant entry point into a heavy task.</p>
+          <img src="images/optiSTREAM/RARC.png" alt="Adding structured data" style="width:100%; height:auto; display:block; border-radius:var(--radius);">
+        </div>
+
+      </div>
+
+      <div class="metrics-line"><span>Time to validate complex EOB documents <strong>reduced by 40%</strong></span></div>
+    </div>
+
+    <!-- ======= SOLUTION 02 ======= -->
+    <div class="case-section reveal">
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title"><span class="solution-num">2.</span> Giving users control over what they see</h2>
+          <span class="challenge-chip">Configurable Workspace</span>
+        </div>
+      </div>
+
+      <div class="sol-blocks">
+
+        <div class="sol-block">
+          <h3 class="solution-block-title">Workspace customisation to reduce cognitive load</h3>
+          <p class="sol-block-desc">Only the most relevant fields are shown by default — no empty fields, no noise. Reviewers focus on what actually needs validation.</p>
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="auto"
+            style="width:100%; height:auto; display:block; border-radius:var(--radius);"
+          >
+            <source src="images/optiSTREAM/data-extraction.mp4" type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+
+      <div class="metrics-line"><span>Manual review steps <strong>reduced by 50%</strong></span></div>
+    </div>
+
+    <!-- ======= SOLUTION 03 ======= -->
+    <div class="case-section reveal">
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title"><span class="solution-num">3.</span> Letting users configure the work queue to their needs</h2>
+          <span class="challenge-chip">Saved Filters</span>
+        </div>
+      </div>
+
+      <div class="sol-blocks">
+
+        <div class="sol-block">
+          <h3 class="solution-block-title">Saved filters</h3>
+          <p class="sol-block-desc">Users configure their work queue once and pin it — every session starts with the right context already applied. Less setup, more work done.</p>
+          <img src="images/optiSTREAM/saved-filters.png" alt="Saved filters" style="width:100%; height:auto; display:block; border-radius:var(--radius); object-fit:contain;">
+        </div>
+
+      </div>
+
+      <div class="metrics-line"><span>Filter setup time <strong>reduced by 80%</strong></span></div>
+    </div>
+
+    <!-- ======= PROTOTYPING & VALIDATION ======= -->
+    <div class="case-section reveal">
+      <p class="case-section-label">Prototyping &amp; Validation</p>
+      <h2 class="section-title-serif">Prototyping close to the real thing</h2>
+
+      <p class="case-text">
+        For complex B2B products, a static prototype isn't
+        enough. I rebuilt the full logic of each flow in
+        Figma Make — automations, calculations, edge cases —
+        so that subject matter experts could test real
+        behaviour, not imagine it. Their feedback drove
+        every iteration.
+      </p>
+
+      <div style="margin-top: 40px;">
+        <img src="images/optiSTREAM/Prototyting.png" alt="Prototyping close to the real thing" style="width:100%; height:auto; display:block; border-radius:var(--radius); object-fit:contain;">
+        <p class="screen-caption" style="text-align:center; margin-top:12px;">183 versions of the EOB flow alone — not because things went wrong, but because every session with SMEs surfaced new logic to refine.</p>
+      </div>
+
+    </div>
+
+    <!-- ======= SCREEN STACK ======= -->
+    <div class="case-section reveal">
+      <p class="case-section-label">Explore more screens</p>
+
+      <!--
+        Cards are listed top-of-stack FIRST (index 0 = first shown).
+        JS assigns z-index and stagger offset so card[0] is always on top.
+        All 9 product screens; user drags to reveal each one.
+      -->
+      <div class="ss-wrap">
+        <div class="ss-stage" id="ssStage">
+
+          <!-- 0: top of stack — Payment Summary Tab -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/pst-anim.png" alt="Payment Summary Tab">
+          </div>
+          <!-- 1 -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/de-anim.png" alt="Data Extraction">
+          </div>
+          <!-- 2 -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/de-2-anim.png" alt="Data Extraction 2">
+          </div>
+          <!-- 3 -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/clustering-anim.png" alt="Clustering">
+          </div>
+          <!-- 4 -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/filters-anim.png" alt="Filters">
+          </div>
+          <!-- 5 -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/matching-anim.png" alt="Matching">
+          </div>
+          <!-- 6 -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/pst-2-anim.png" alt="Payment Summary Tab 2">
+          </div>
+          <!-- 7 -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/tagging-anim.png" alt="Tagging">
+          </div>
+          <!-- 8: bottom of stack -->
+          <div class="ss-card">
+            <img src="images/optiSTREAM/404-anim.png" alt="404 Page">
+          </div>
+
+        </div><!-- /ss-stage -->
+      </div><!-- /ss-wrap -->
+      <p class="ss-hint">← drag to browse screens →</p>
+
+    </div><!-- /case-section -->
+
+  </div><!-- /case-content -->
+
+  <!-- Lightbox (fixed, outside content flow) -->
+  <div class="cine-lightbox" id="cineLightbox" role="dialog" aria-modal="true">
+    <button class="cine-lb-close" id="cineLbClose" aria-label="Close">✕</button>
+    <img src="" alt="" id="cineLbImg">
+  </div>
+
+  <!-- Case switcher — rendered by shared component -->
+  <section class="case-switcher" id="csSwitcher"></section>
+  <script src="js/header.js"></script>
+  <script src="js/case-switcher.js"></script>
+  <script>CaseSwitcher.init({ currentCase: 'optistream' });</script>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <a href="mailto:mariia.hrezina@gmail.com" class="footer-email full">
+        mariia.hrezina@gmail.com
+        <span class="email-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 117 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M41.6324 62.1264C31.4041 57.3291 9.72011 47.7347 4.81052 47.7347C-1.32647 47.7347 107.094 4.55957 111.185 4.55957C115.276 4.55957 84.5921 101.19 80.5008 107.357C76.4095 113.525 49.8159 66.2383 51.8615 64.1823C53.4981 62.5376 74.3638 44.3081 84.5921 35.3989" stroke="currentColor" stroke-width="9.11932" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <div class="footer-right">
+        <a href="mailto:mariia.hrezina@gmail.com" class="footer-email mobile">Email</a>
+        <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>
+      </div>
+
+      <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        Contact me ✦
+      </a>
+
+    </div>
+  </footer>
+
+  <!-- ============ PIPELINE JS ============ -->
+  <script>
+    (function () {
+      var STEPS = [
+        { title: 'Clustering',      desc: 'Before anything can be processed, documents need to be sorted into logical batches. Wrong grouping here breaks everything downstream.' },
+        { title: 'Classification',  desc: 'AI labels each document — but a human must confirm. Dozens of types, each with its own logic and edge cases.' },
+        { title: 'Data Extraction', desc: 'Fields are pulled automatically, but documents are messy. The reviewer validates every field side by side with the source.' },
+        { title: 'Tagging',         desc: 'AI suggests standardised codes. The reviewer confirms or overrides. One wrong code changes the financial outcome.' },
+        { title: 'Matching',        desc: 'The reviewer picks the correct match from AI-ranked candidates — linking the document to a person in the system.' }
+      ];
+
+      var current   = 0;
+      var circles   = document.querySelectorAll('#pipeline .pipeline-circle');
+      var lines     = document.querySelectorAll('#pipeline .pipeline-line');
+      var cardNum   = document.getElementById('pipelineNum');
+      var cardTitle = document.getElementById('pipelineTitle');
+      var cardDesc  = document.getElementById('pipelineDesc');
+      var btnBack   = document.getElementById('pipelineBack');
+      var btnNext   = document.getElementById('pipelineNext');
+
+      function update() {
+        circles.forEach(function (c, i) {
+          c.classList.remove('active', 'done');
+          if (i === current)    c.classList.add('active');
+          else if (i < current) c.classList.add('done');
+        });
+        lines.forEach(function (l, i) {
+          l.classList.toggle('done', i < current);
+        });
+        var step = STEPS[current];
+        cardNum.textContent   = String(current + 1).padStart(2, '0');
+        cardTitle.textContent = step.title;
+        cardDesc.textContent  = step.desc;
+        btnBack.disabled      = current === 0;
+        btnNext.textContent   = current === STEPS.length - 1 ? 'Restart' : 'Next →';
+      }
+
+      btnBack.addEventListener('click', function () {
+        if (current > 0) { current--; update(); }
+      });
+      btnNext.addEventListener('click', function () {
+        current = current < STEPS.length - 1 ? current + 1 : 0;
+        update();
+      });
+      document.querySelectorAll('#pipeline .pipeline-step').forEach(function (el) {
+        el.addEventListener('click', function () {
+          current = parseInt(el.dataset.step, 10);
+          update();
+        });
+      });
+
+      update();
+    })();
+  </script>
+
+  <script src="js/main.js"></script>
+
+  <!-- ============ SCREEN STACK JS ============ -->
+  <script>
+  (function () {
+    'use strict';
+
+    var stage = document.getElementById('ssStage');
+    if (!stage) return;
+
+    var cards   = Array.prototype.slice.call(stage.querySelectorAll('.ss-card'));
+    var total   = cards.length;
+    var topIdx  = 0;   // index into cards[] of the current top card
+
+    // ── Dynamic depths: Y offsets scale with stage height ─────────────
+    // relPos 0 = top, 1 = first below, 2 = second below, 3+ = hidden.
+    // On mobile: no rotation (avoids corners hitting overflow-x:hidden on body),
+    // and smaller Y offsets (stage is shorter so less room below).
+    function getDepths() {
+      var h      = stage.offsetHeight;
+      var mobile = window.innerWidth < 640;
+      var tablet = window.innerWidth < 900;
+      var rot1   = mobile ? 0   : (tablet ? -1.0 : -1.8);
+      var rot2   = mobile ? 0   : (tablet ? -1.8 : -3.2);
+      var rot3   = mobile ? 0   : (tablet ? -2.4 : -4.2);
+      var y1     = mobile ? Math.round(h * 0.030) : Math.round(h * 0.052);
+      var y2     = mobile ? Math.round(h * 0.055) : Math.round(h * 0.096);
+      var y3     = mobile ? Math.round(h * 0.075) : Math.round(h * 0.128);
+      return [
+        { y: 0,  scale: 1.000, rot: 0,    opacity: 1.00,
+          shadow: '0 24px 70px rgba(26,25,22,0.22), 0 4px 16px rgba(26,25,22,0.10)' },
+        { y: y1, scale: 0.972, rot: rot1, opacity: 1.00,
+          shadow: '0 10px 36px rgba(26,25,22,0.14)' },
+        { y: y2, scale: 0.944, rot: rot2, opacity: 0.95,
+          shadow: '0 6px 20px rgba(26,25,22,0.10)' },
+        { y: y3, scale: 0.918, rot: rot3, opacity: 0.00,
+          shadow: 'none' }   // 4th+ = hidden
+      ];
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────
+    function depthFor(cardIdx) {
+      // relPos: how far is this card from the current top (mod total)
+      return ((cardIdx - topIdx) % total + total) % total;
+    }
+
+    function applyDepth(card, relPos, animated) {
+      var depths = getDepths();
+      var d = depths[Math.min(relPos, depths.length - 1)];
+      if (animated) {
+        card.style.transition =
+          'transform 0.44s cubic-bezier(0.25, 0.46, 0.45, 0.94), ' +
+          'opacity 0.44s ease, box-shadow 0.44s ease';
+      } else {
+        card.style.transition = 'none';
+        card.offsetHeight;   // reflow
+      }
+      card.style.transform  = 'translateY(' + d.y + 'px) scale(' + d.scale + ') rotate(' + d.rot + 'deg)';
+      card.style.opacity    = String(d.opacity);
+      card.style.zIndex     = String(total - relPos);
+      card.style.boxShadow  = d.shadow;
+      card.style.pointerEvents = relPos === 0 ? 'auto' : 'none';
+    }
+
+    // ── Render all cards except one (used to skip flying card) ───────
+    function renderAll(animated, skip) {
+      cards.forEach(function (card, i) {
+        if (card === skip) return;
+        applyDepth(card, depthFor(i), animated);
+      });
+    }
+
+    // ── Initial render ────────────────────────────────────────────────
+    renderAll(false);
+
+    // ── Drag state ────────────────────────────────────────────────────
+    var dragging  = false;
+    var startX    = 0, startY = 0;
+    var curX      = 0, curY   = 0;
+    var velX      = 0;
+    var prevX     = 0, prevT  = 0;
+
+    function getTopCard() { return cards[topIdx]; }
+
+    function onPointerDown(e) {
+      // Only respond to the top card
+      if (e.target !== getTopCard() && !getTopCard().contains(e.target)) return;
+      var pt  = e.touches ? e.touches[0] : e;
+      dragging = true;
+      startX = curX = prevX = pt.clientX;
+      startY = curY = pt.clientY;
+      velX   = 0;
+      prevT  = Date.now();
+      var tc = getTopCard();
+      tc.style.transition  = 'none';
+      tc.style.cursor      = 'grabbing';
+    }
+
+    function onPointerMove(e) {
+      if (!dragging) return;
+      if (e.cancelable) e.preventDefault();
+      var pt  = e.touches ? e.touches[0] : e;
+      var now = Date.now();
+      var dt  = Math.max(now - prevT, 1);
+      velX    = (pt.clientX - prevX) / dt;
+      prevX   = pt.clientX;
+      prevT   = now;
+      curX    = pt.clientX;
+      curY    = pt.clientY;
+
+      var dx  = curX - startX;
+      var dy  = curY - startY;
+      var rot = dx * 0.018;   // subtle rotation during drag
+
+      getTopCard().style.transform =
+        'translate(' + dx + 'px, ' + dy + 'px) rotate(' + rot + 'deg)';
+    }
+
+    function onPointerUp() {
+      if (!dragging) return;
+      dragging = false;
+
+      var tc   = getTopCard();
+      tc.style.cursor = 'grab';
+
+      var dx         = curX - startX;
+      var DIST_TRESH = stage.offsetWidth * 0.18;
+      var VEL_TRESH  = 0.32;
+
+      if (Math.abs(dx) > DIST_TRESH || Math.abs(velX) > VEL_TRESH) {
+        // ── Dismiss: card flies off ──────────────────────────────────
+        var dir    = (dx >= 0 || velX >= 0) ? 1 : -1;
+        var flyX   = dir * (stage.offsetWidth * 1.4);
+        var flyY   = (curY - startY) * 1.2 - 30;
+        var flyRot = dir * 22;
+        var flyCard = tc;
+
+        flyCard.style.transition =
+          'transform 0.40s cubic-bezier(0.25, 1, 0.5, 1), ' +
+          'opacity 0.32s ease';
+        flyCard.style.transform =
+          'translate(' + flyX + 'px, ' + flyY + 'px) rotate(' + flyRot + 'deg)';
+        flyCard.style.opacity = '0';
+
+        // Advance stack: increment topIdx (wraps to cycle all 9 screens)
+        topIdx = (topIdx + 1) % total;
+
+        // Animate cards behind coming forward immediately
+        renderAll(true, flyCard);
+
+        // After fly-off: silently snap dismissed card to its new bottom slot
+        setTimeout(function () {
+          flyCard.style.transition = 'none';
+          flyCard.offsetHeight;
+          applyDepth(flyCard, depthFor(cards.indexOf(flyCard)), false);
+        }, 440);
+
+      } else {
+        // ── Snap back to top ─────────────────────────────────────────
+        tc.style.transition =
+          'transform 0.50s cubic-bezier(0.34, 1.48, 0.64, 1)';
+        tc.style.transform =
+          'translateY(0) scale(1) rotate(0deg)';
+      }
+    }
+
+    // ── Event binding ─────────────────────────────────────────────────
+    stage.addEventListener('mousedown',  onPointerDown);
+    stage.addEventListener('touchstart', onPointerDown, { passive: true });
+    document.addEventListener('mousemove',  onPointerMove);
+    document.addEventListener('touchmove',  onPointerMove, { passive: false });
+    document.addEventListener('mouseup',    onPointerUp);
+    document.addEventListener('touchend',   onPointerUp);
+
+  })();
+  </script>
+
+  <!-- ── Hero image: reveal only after full decode (no progressive-JPEG strips) -->
+  <script>
+  (function () {
+    var img = document.getElementById('heroImg');
+    if (!img) return;
+
+    function show() { img.style.opacity = '1'; }
+
+    // img.decode() resolves after the full image is decoded in memory
+    if (typeof img.decode === 'function') {
+      img.decode().then(show).catch(show); // catch: still show on error
+    } else {
+      // Fallback for browsers without decode()
+      if (img.complete) { show(); }
+      else { img.addEventListener('load', show); img.addEventListener('error', show); }
+    }
+  })();
+  </script>
+
+  <!-- ── SplitReveal — Hero title ─────────────────────────────────── -->
+  <script>
+  (function () {
+    'use strict';
+
+    var h1 = document.getElementById('heroTitle');
+    if (!h1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // ── Override .reveal fade — the lines handle visibility themselves ──
+    h1.style.cssText += ';opacity:1;transform:none;transition:none';
+
+    // ── 1. Detect line breaks CHARACTER BY CHARACTER ────────────────────
+    // Word-level scanning fails for hyphenated compounds like "AI-assisted":
+    // the browser breaks the line at the hyphen, so "AI-" stays on line 1
+    // and "assisted" starts line 2 — but a word-Range spans both and reports
+    // the topmost Y, misassigning the whole compound to line 1.
+    // Character-level scanning sees the top-change between '-' and 'a',
+    // capturing the exact break point the browser chose.
+    var raw = h1.textContent.replace(/\s+/g, ' ').trim();
+    h1.textContent = raw;
+    var textNode = h1.firstChild;
+
+    var breakPoints = [];   // character indices where a new visual line starts
+    var prevTop     = null;
+
+    for (var ci = 0; ci < raw.length; ci++) {
+      if (raw[ci] === ' ') continue;   // spaces at line-end are unreliable — skip
+
+      var range = document.createRange();
+      range.setStart(textNode, ci);
+      range.setEnd(textNode, ci + 1);
+      var top = Math.round(range.getBoundingClientRect().top);
+
+      if (prevTop !== null && top !== prevTop) {
+        breakPoints.push(ci);           // new line starts at this character
+      }
+      prevTop = top;
+    }
+
+    // Build line strings from the detected break positions
+    var lineTexts = [];
+    var segStart  = 0;
+    breakPoints.forEach(function (bp) {
+      // Trim trailing space before the break point (e.g. space before "assisted")
+      lineTexts.push(raw.slice(segStart, bp).replace(/\s+$/, ''));
+      // Skip any leading space at the start of the new segment
+      segStart = bp;
+      while (segStart < raw.length && raw[segStart] === ' ') segStart++;
+    });
+    lineTexts.push(raw.slice(segStart).trim());   // last (or only) line
+    lineTexts = lineTexts.filter(function (t) { return t.length > 0; });
+
+    // ── 2. Rebuild with clip wrappers ───────────────────────────────────
+    h1.innerHTML = '';
+    lineTexts.forEach(function (text, i) {
+      var wrap  = document.createElement('span');
+      wrap.className = 'sr-line-wrap';
+
+      var inner = document.createElement('span');
+      inner.className = 'sr-line';
+      inner.style.transitionDelay = (0.12 + i * 0.10) + 's';
+      inner.textContent = text;   // plain text — no span boundaries, no kerning drift
+
+      wrap.appendChild(inner);
+      h1.appendChild(wrap);
+    });
+
+    // ── 4. Observe once ─────────────────────────────────────────────────
+    if (!('IntersectionObserver' in window)) {
+      h1.querySelectorAll('.sr-line').forEach(function (l) { l.classList.add('is-visible'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      h1.classList.add('sr-visible');
+      io.unobserve(h1);
+    }, { threshold: 0.1 });
+
+    io.observe(h1);
+  })();
+  </script>
+
+  <!-- ── SplitReveal — Overview paragraph ─────────────────────────── -->
+  <script>
+  (function () {
+    'use strict';
+
+    var p = document.querySelector('.case-overview .case-text');
+    if (!p) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // ── 1. Detect line breaks character by character ────────────────────
+    var raw = p.textContent.replace(/\s+/g, ' ').trim();
+    p.textContent = raw;
+    var textNode = p.firstChild;
+
+    var breakPoints = [];
+    var prevTop     = null;
+
+    for (var ci = 0; ci < raw.length; ci++) {
+      if (raw[ci] === ' ') continue;
+
+      var range = document.createRange();
+      range.setStart(textNode, ci);
+      range.setEnd(textNode, ci + 1);
+      var top = Math.round(range.getBoundingClientRect().top);
+
+      if (prevTop !== null && top !== prevTop) {
+        breakPoints.push(ci);
+      }
+      prevTop = top;
+    }
+
+    // Build line strings
+    var lineTexts = [];
+    var segStart  = 0;
+    breakPoints.forEach(function (bp) {
+      lineTexts.push(raw.slice(segStart, bp).replace(/\s+$/, ''));
+      segStart = bp;
+      while (segStart < raw.length && raw[segStart] === ' ') segStart++;
+    });
+    lineTexts.push(raw.slice(segStart).trim());
+    lineTexts = lineTexts.filter(function (t) { return t.length > 0; });
+
+    // ── 2. Rebuild with clip wrappers ───────────────────────────────────
+    p.innerHTML = '';
+    lineTexts.forEach(function (text, i) {
+      var wrap  = document.createElement('span');
+      wrap.className = 'sr-line-wrap';
+
+      var inner = document.createElement('span');
+      inner.className = 'sr-line';
+      // Stagger: 0.15s base + 0.08s per line (slightly tighter than the title)
+      inner.style.transitionDelay = (0.15 + i * 0.08) + 's';
+      inner.textContent = text;
+
+      wrap.appendChild(inner);
+      p.appendChild(wrap);
+    });
+
+    // ── 3. Observe once — trigger on scroll, never replay ───────────────
+    if (!('IntersectionObserver' in window)) {
+      p.querySelectorAll('.sr-line').forEach(function (l) { l.classList.add('is-visible'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      p.querySelectorAll('.sr-line').forEach(function (l) { l.classList.add('is-visible'); });
+      io.unobserve(p);
+    }, { threshold: 0.25, rootMargin: '0px 0px -24px 0px' });
+
+    io.observe(p);
+  })();
+  </script>
+
+</body>
+</html>

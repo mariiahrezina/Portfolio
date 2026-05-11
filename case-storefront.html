@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concert Archive Storefront Case Study — Mariia Hrezina</title>
+  <meta name="description" content="Designed a storefront for live recordings, reducing discovery time — from wireframes to production-ready in 3 weeks.">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article">
+  <meta property="og:url"         content="https://mhrezina.com/case-storefront.html">
+  <meta property="og:title"       content="Concert Archive Storefront — Cutting Discovery Time · Mariia Hrezina">
+  <meta property="og:description" content="Designed a concert archive storefront for dedicated fans — from wireframes to production-ready in 3 weeks.">
+  <meta property="og:image"       content="https://mhrezina.com/images/og-image.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Concert Archive Storefront — Cutting Discovery Time · Mariia Hrezina">
+  <meta name="twitter:description" content="Designed a concert archive storefront for dedicated fans — from wireframes to production-ready in 3 weeks.">
+  <meta name="twitter:image"       content="https://mhrezina.com/images/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"       href="images/favicon.ico">
+  <link rel="icon" type="image/svg+xml"      href="images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180"    href="images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ============================================================
+       STOREFRONT — NEW COMPONENTS
+       All values use existing CSS variables from style.css.
+       ============================================================ */
+
+    /* --- Section chip label (same as optistream challenge-chip) --- */
+    .challenge-chip {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--accent-green);
+      background: var(--accent-green-light);
+      border-radius: 100px;
+      padding: 4px 12px;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    /* --- Option A / B comparison grid --- */
+    .option-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 32px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 640px) {
+      .option-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Option card */
+    .option-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: opacity 0.55s ease, border-color 0.55s ease, box-shadow 0.4s ease;
+    }
+
+    .option-card.is-dimmed {
+      opacity: 0.28;
+    }
+
+    .option-card.is-chosen {
+      border-color: var(--accent-green);
+      box-shadow: 0 0 0 0.5px var(--accent-green);
+    }
+
+    /* Option header labels */
+    .option-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .option-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .option-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Pros / Cons list — items animate in */
+    .option-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 4px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .option-bullets li {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .option-bullets li.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Immediately visible state (for no-IO fallback + reduced motion) */
+    .option-bullets li.no-anim {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .opt-mark {
+      flex-shrink: 0;
+      font-style: normal;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1;
+      margin-top: 1px;
+    }
+
+    .opt-mark-pro { color: var(--accent-green); }
+    .opt-mark-con { color: var(--accent-pink); }
+
+    /* "Chosen direction" green badge */
+    .chosen-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--accent-green);
+      background: var(--accent-green-light);
+      border-radius: 100px;
+      padding: 4px 12px;
+      align-self: flex-start;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      margin-top: 4px;
+    }
+
+    .option-card.is-chosen .chosen-badge {
+      opacity: 1;
+    }
+
+    /* Resolution note — shown below the chosen card's last minus */
+    .insight-note {
+      font-size: 14px;
+      color: var(--accent-green-mid);
+      line-height: 1.65;
+      padding: 12px 16px;
+      background: var(--accent-green-light);
+      border-left: 2px solid var(--accent-green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-top: 4px;
+      opacity: 0;
+      transition: opacity 0.45s ease 0.2s;
+    }
+
+    .option-card.is-chosen .insight-note {
+      opacity: 1;
+    }
+
+    /* Media placeholder */
+    .media-placeholder {
+      background: #1A1916;
+      border-radius: var(--radius);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-placeholder p {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(248, 246, 241, 0.30);
+      text-align: center;
+      padding: 32px 24px;
+    }
+
+    /* ============================================================
+       IMAGE COMPARISON — Solution 01
+       ============================================================ */
+
+    .img-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    @media (max-width: 640px) {
+      .img-comparison { grid-template-columns: 1fr; }
+    }
+
+    /* Option column */
+    .img-option {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    /* ALL-CAPS option label — uses design-system pink accent */
+    .img-option-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent-pink);
+      margin-bottom: 4px;
+    }
+
+    /* Option title */
+    .img-option-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+      margin: 0 0 14px;
+    }
+
+    /* Image frame */
+    .img-option-frame {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: visible;
+      box-shadow: 0 4px 20px rgba(26, 25, 22, 0.09),
+                  0 1px 4px  rgba(26, 25, 22, 0.05);
+      line-height: 0;
+      transition: box-shadow 0.5s ease, filter 0.5s ease;
+      background: var(--border);
+    }
+
+    .img-option-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius);
+    }
+
+    /* Pros / cons list — reveals progressively on scroll */
+    .img-option-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .img-option-bullets li {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .img-option-bullets li.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Two-phone grouped pair — Section 03 mobile layouts ──────────
+       Both images sit side by side as one visual flow.
+       flex: 1 1 0 + width: 0 !important overrides the parent
+       .img-option-frame img { width: 100% } rule.
+    ────────────────────────────────────────────────────────────── */
+    .phone-duo {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .phone-duo img {
+      flex: 1 1 0;
+      width: 0 !important;
+      min-width: 0;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: calc(var(--radius) - 2px);
+    }
+
+    /* ── Section 03 — equal device scale ────────────────────────────
+       Option A's phone is constrained to half the frame width so it
+       matches the size of each phone in the Option B duo.
+       Result: all three devices appear at identical scale.
+       Option B is naturally wider — that's expected and correct.
+    ────────────────────────────────────────────────────────────── */
+    .img-option-frame.is-mobile {
+      display: flex;
+      /* Left-align so Option A's phone shares the same starting edge as
+         the left phone in Option B's grouped pair */
+      justify-content: flex-start;
+      min-height: 0;      /* override base 180px */
+      line-height: normal; /* override base line-height: 0 */
+      /* Fully strip card appearance — phones sit directly on page bg */
+      background: transparent !important;
+      box-shadow: none !important;
+      border-radius: 0;
+    }
+
+    /* Single phone: constrained to the same width as each phone in the duo.
+       No CSS border-radius — device shape comes from the PNG itself. */
+    .img-option-frame.is-mobile > img {
+      width: calc(50% - 5px) !important;
+      height: auto;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    /* Duo: fills the frame naturally, each phone independent, no container bg */
+    .img-option-frame.is-mobile .phone-duo {
+      width: 100%;
+      align-items: flex-start;
+      background: transparent;
+    }
+
+    .img-option-frame.is-mobile .phone-duo img {
+      border-radius: 0;
+    }
+
+    /* Dimmed state — disabled, Option A stays at full opacity */
+    .img-option.is-dimmed {
+      opacity: 1;
+    }
+
+    .img-option.is-dimmed .img-option-frame {
+      filter: none;
+    }
+
+    /* Chosen state — Option B after animation */
+    .img-option.is-chosen .img-option-frame {
+      box-shadow: 0 4px 20px rgba(26, 25, 22, 0.09),
+                  0 1px 4px  rgba(26, 25, 22, 0.05);
+    }
+
+    /* ── Chosen direction sticker ──────────────────────────────────
+       Physical paper label: warm green sticky-note feel,
+       multi-layer lift shadow, organic corners, subtle tape (::before),
+       faint bottom-edge fold (::after). Pinned at top-right.
+    ────────────────────────────────────────────────────────────── */
+    .chosen-sticker {
+      position: absolute;
+      top: -14px;
+      right: 10px;
+
+      /* Warm mid-green — between brand dark and light mint, like real paper */
+      background:
+        linear-gradient(
+          155deg,
+          rgba(255,255,255,0.14)  0%,
+          rgba(0,0,0,0.04)       55%,
+          rgba(255,255,255,0.07) 100%
+        ),
+        #BEDCBA;
+
+      width: 102px;
+      padding: 11px 13px 13px;
+
+      /* Each corner slightly different — paper imperfection */
+      border-radius: 2px 2px 3px 1px / 1px 3px 2px 2px;
+
+      /* Layered shadows: tight contact shadow + medium lift + wide ambient */
+      box-shadow:
+        0  1px  2px rgba(26, 25, 22, 0.12),
+        0  3px  6px rgba(26, 25, 22, 0.10),
+        0  7px 18px rgba(26, 25, 22, 0.07),
+        0 14px 32px rgba(26, 25, 22, 0.04),
+        inset 0  1px  0 rgba(255, 255, 255, 0.50),
+        inset 0 -1px  0 rgba(0,   0,   0,   0.05);
+
+      transform: rotate(-4deg);
+      transform-origin: top right;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.45s ease 0.1s;
+    }
+
+    /* Tape — a single, barely-there strip. Translucent warm strip. */
+    .chosen-sticker::before {
+      content: '';
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%) rotate(0.6deg);
+      width: 28px;
+      height: 11px;
+      background: rgba(222, 213, 182, 0.58);
+      border-radius: 1px;
+      border: 0.5px solid rgba(26, 25, 22, 0.05);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.52),
+        0 1px 2px rgba(26, 25, 22, 0.05);
+    }
+
+    /* Fold shadow — very faint darkening at bottom edge, like paper has weight */
+    .chosen-sticker::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 3px;
+      right: 3px;
+      height: 7px;
+      background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+      border-radius: 0 0 3px 1px;
+      pointer-events: none;
+    }
+
+    .sticker-main {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: #1A3C1E;
+      letter-spacing: 0.01em;
+    }
+
+    .img-option.is-chosen .chosen-sticker {
+      opacity: 1;
+    }
+
+    /* ── Drawback → Mitigation demo block ─────────────────────────
+       Shown after the comparison; the sidebar-toggle video directly
+       addresses Option B's "takes horizontal space" con.
+    ────────────────────────────────────────────────────────────── */
+    .sdemo {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 32px;
+      align-items: center;
+      margin-top: 48px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    @media (max-width: 768px) {
+      .sdemo { grid-template-columns: 1fr; }
+    }
+
+    .sdemo-overline {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent-pink);
+      margin-bottom: 8px;
+    }
+
+    .sdemo-text {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .sdemo-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 28px rgba(26, 25, 22, 0.10),
+                  0 1px 4px rgba(26, 25, 22, 0.06);
+    }
+
+    /* Reduced motion — skip all custom animations */
+    @media (prefers-reduced-motion: reduce) {
+      .option-card,
+      .option-bullets li,
+      .chosen-badge,
+      .insight-note,
+      .img-option,
+      .img-option-frame,
+      .img-option-bullets li,
+      .chosen-sticker,
+      .sdemo {
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+      .chosen-sticker { transform: rotate(-4deg) !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-pill" id="cursorPill"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-left">
+      <a class="nav-link js-nav-works" href="#">works</a>
+      <a class="nav-link js-nav-about" href="#">about</a>
+    </div>
+    <a class="nav-logo js-nav-home" href="index.html">
+      <img src="images/Hero/Mariia.svg" alt="Mariia Hrezina" class="nav-logo-svg">
+    </a>
+    <div class="nav-right">
+      <a class="nav-link js-nav-contacts" href="#">contacts</a>
+      <a class="nav-link" href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener">cv</a>
+    </div>
+  </nav>
+
+  <!-- ============ CASE HERO ============ -->
+  <section class="case-hero">
+    <h1 class="case-title reveal" style="max-width:780px">
+      Designed a storefront for live recordings, reducing discovery time
+    </h1>
+  </section>
+
+  <!-- ============ FULL-WIDTH HERO IMAGE ============ -->
+  <div class="case-hero-image">
+    <img src="images/e-commerce/hero-e-commerce.png" alt="Concert archive storefront — hero" loading="eager">
+  </div>
+
+  <!-- ============ CASE CONTENT ============ -->
+  <div class="case-content">
+
+    <!-- ======= OVERVIEW ======= -->
+    <div class="case-overview reveal">
+      <p class="case-section-label">Overview</p>
+      <p class="case-text">
+        Designed a storefront for live concert recordings —
+        from wireframes to production-ready in 3 weeks.
+      </p>
+
+      <div class="overview-meta">
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">My Role</span>
+          <p class="overview-meta-value">Product Designer, end-to-end</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">The Team</span>
+          <p class="overview-meta-value">Cross-functional team</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">Timeline</span>
+          <p class="overview-meta-value">3 weeks</p>
+        </div>
+        <div class="overview-meta-col">
+          <span class="overview-meta-label">Platform</span>
+          <p class="overview-meta-value">Web — Desktop, Tablet, Mobile</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======= SOLUTION 01 — FILTERS ======= -->
+    <div class="case-section reveal">
+
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title">
+            <span class="solution-num">01.</span>
+            Designing a filter system that scales
+          </h2>
+          <span class="challenge-chip">Catalog Filters</span>
+        </div>
+      </div>
+
+      <p class="case-text">
+        The catalog is large and growing. Users filter by artist, year,
+        location, venue, and format — often all at once. The system needs
+        to handle this depth today and scale tomorrow.
+      </p>
+
+      <!-- Option A / B image comparison -->
+      <div class="img-comparison js-img-comparison">
+
+        <!-- Option A -->
+        <div class="img-option js-img-a">
+          <span class="img-option-label">Option A</span>
+          <p class="img-option-name">Top-bar dropdowns</p>
+          <div class="img-option-frame">
+            <img src="images/e-commerce/top-bar-dropdowns.png" alt="Top-bar dropdowns" loading="lazy">
+          </div>
+          <ul class="img-option-bullets">
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Works well for 3–4 filter categories</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Becomes cluttered as the catalog grows</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Active filters hard to scan at a glance</li>
+          </ul>
+        </div>
+
+        <!-- Option B — Chosen direction -->
+        <div class="img-option js-img-b">
+          <span class="img-option-label">Option B</span>
+          <p class="img-option-name">Left sidebar</p>
+          <div class="img-option-frame">
+            <img src="images/e-commerce/left-sidebar-filters-shown.png" alt="Left sidebar, filters shown" loading="lazy">
+            <span class="chosen-sticker"><span class="sticker-main">Chosen direction</span></span>
+          </div>
+          <ul class="img-option-bullets">
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Scales as new filter categories are added</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> All active filters visible simultaneously</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Takes up horizontal screen space by default</li>
+          </ul>
+        </div>
+
+      </div><!-- /img-comparison -->
+
+    </div><!-- /solution 01 -->
+
+    <!-- ======= SOLUTION 02 — PRODUCT VIEW ======= -->
+    <div class="case-section reveal">
+
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title">
+            <span class="solution-num">02.</span>
+            Keeping users in the browsing flow
+          </h2>
+          <span class="challenge-chip">Product display approach</span>
+        </div>
+      </div>
+
+      <p class="case-text">
+        Users choose between shows based on setlist and emotional connection —
+        not technical specs. Navigating to a separate page per show breaks
+        the browsing rhythm and reduces the chance of an impulse purchase.
+      </p>
+
+      <!-- Option A / B image comparison — Option A is chosen -->
+      <div class="img-comparison js-img-comparison" data-chosen="a">
+
+        <!-- Option A — Chosen direction -->
+        <div class="img-option js-img-a">
+          <span class="img-option-label">Option A</span>
+          <p class="img-option-name">Quick view side panel</p>
+          <div class="img-option-frame">
+            <img src="images/e-commerce/quick-view-side-panel.png" alt="Quick view side panel" loading="lazy">
+            <span class="chosen-sticker"><span class="sticker-main">Chosen direction</span></span>
+          </div>
+          <ul class="img-option-bullets">
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Setlist, format, price and Add to Cart in one place</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> User stays in catalog context</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Can move between shows without losing position</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Less space for detailed content than a full page</li>
+          </ul>
+        </div>
+
+        <!-- Option B -->
+        <div class="img-option js-img-b">
+          <span class="img-option-label">Option B</span>
+          <p class="img-option-name">Dedicated product page</p>
+          <div class="img-option-frame">
+            <img src="images/e-commerce/product-page.png" alt="Dedicated product page" loading="lazy">
+          </div>
+          <ul class="img-option-bullets">
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Complete information architecture</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Familiar e-commerce pattern</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Breaks browsing flow — user loses catalog context</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Back-navigation required to compare shows</li>
+          </ul>
+        </div>
+
+      </div><!-- /img-comparison -->
+
+    </div><!-- /solution 02 -->
+
+    <!-- ======= SOLUTION 03 — MOBILE FILTERS ======= -->
+    <div class="case-section reveal">
+
+      <div class="solution-header">
+        <div class="solution-title-block">
+          <h2 class="solution-title">
+            <span class="solution-num">03.</span>
+            Bringing full filter depth to mobile
+          </h2>
+          <span class="challenge-chip">Filters on mobile</span>
+        </div>
+      </div>
+
+      <p class="case-text">
+        On mobile, the catalog requires the same filtering depth as on desktop.
+        The challenge: how to present this complexity on a small screen without
+        losing usability.
+      </p>
+
+      <!-- Option A / B image comparison — Option B is chosen (default) -->
+      <div class="img-comparison js-img-comparison">
+
+        <!-- Option A -->
+        <div class="img-option js-img-a">
+          <span class="img-option-label">Option A</span>
+          <p class="img-option-name">Stacked accordion</p>
+          <div class="img-option-frame is-mobile">
+            <img src="images/e-commerce/stacked-accordion-mobile.png" alt="Stacked accordion — mobile" loading="lazy">
+          </div>
+          <ul class="img-option-bullets">
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Everything visible in one place</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Too many decisions at once on a small screen</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Easy to lose track of what's already selected</li>
+          </ul>
+        </div>
+
+        <!-- Option B — Chosen direction: two screens shown as one grouped flow -->
+        <div class="img-option js-img-b">
+          <span class="img-option-label">Option B</span>
+          <p class="img-option-name">Drill-in navigation</p>
+          <div class="img-option-frame is-mobile">
+            <div class="phone-duo">
+              <img src="images/e-commerce/drill-in-navigation-mobile-1.png" alt="Drill-in navigation — step 1" loading="lazy">
+              <img src="images/e-commerce/drill-in-navigation-mobile-2.png" alt="Drill-in navigation — step 2" loading="lazy">
+            </div>
+            <span class="chosen-sticker"><span class="sticker-main">Chosen direction</span></span>
+          </div>
+          <ul class="img-option-bullets">
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> One focused task per screen</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Follows native iOS and Android patterns</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-pro">✓</span> Faster filter setup — less cognitive load</li>
+            <li class="js-reveal-item"><span class="opt-mark opt-mark-con">✗</span> Requires more taps to navigate between categories</li>
+          </ul>
+        </div>
+
+      </div><!-- /img-comparison -->
+
+    </div><!-- /solution 03 -->
+
+  </div><!-- /case-content -->
+
+  <!-- Case switcher — rendered by shared component -->
+  <section class="case-switcher" id="csSwitcher"></section>
+  <script src="js/header.js"></script>
+  <script src="js/case-switcher.js"></script>
+  <script>CaseSwitcher.init({ currentCase: 'storefront' });</script>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <a href="mailto:mariia.hrezina@gmail.com" class="footer-email full">
+        mariia.hrezina@gmail.com
+        <span class="email-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 117 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M41.6324 62.1264C31.4041 57.3291 9.72011 47.7347 4.81052 47.7347C-1.32647 47.7347 107.094 4.55957 111.185 4.55957C115.276 4.55957 84.5921 101.19 80.5008 107.357C76.4095 113.525 49.8159 66.2383 51.8615 64.1823C53.4981 62.5376 74.3638 44.3081 84.5921 35.3989" stroke="currentColor" stroke-width="9.11932" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <div class="footer-right">
+        <a href="mailto:mariia.hrezina@gmail.com" class="footer-email mobile">Email</a>
+        <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>
+      </div>
+
+      <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        Contact me ✦
+      </a>
+
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <!-- ============ SCROLL ANIMATION JS ============ -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* Respect user's motion preference */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    /* Fallback: no IntersectionObserver — make everything visible immediately */
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.js-solution .option-bullets li').forEach(function (li) {
+        li.classList.add('no-anim');
+      });
+      document.querySelectorAll('.js-solution .js-option-b').forEach(function (card) {
+        card.classList.add('is-chosen');
+      });
+      document.querySelectorAll('.js-img-comparison .js-reveal-item').forEach(function (li) {
+        li.classList.add('is-visible');
+      });
+      document.querySelectorAll('.js-img-comparison').forEach(function (grid) {
+        var chosenSide = grid.dataset.chosen || 'b';
+        var chosen = grid.querySelector(chosenSide === 'a' ? '.js-img-a' : '.js-img-b');
+        var dimmed = grid.querySelector(chosenSide === 'a' ? '.js-img-b' : '.js-img-a');
+        if (chosen) chosen.classList.add('is-chosen');
+        if (dimmed) dimmed.classList.add('is-dimmed');
+      });
+      document.querySelectorAll('.js-sidebar-demo').forEach(function (el) {
+        el.style.opacity = '1';
+      });
+      return;
+    }
+
+    var solutions = document.querySelectorAll('.js-solution');
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || entry.target.dataset.animated) return;
+        entry.target.dataset.animated = '1';
+
+        var grid    = entry.target;
+        var optionA = grid.querySelector('.js-option-a');
+        var optionB = grid.querySelector('.js-option-b');
+
+        /* Collect all list items from both options for sequential reveal */
+        var itemsA = optionA ? Array.prototype.slice.call(optionA.querySelectorAll('.js-reveal-item')) : [];
+        var itemsB = optionB ? Array.prototype.slice.call(optionB.querySelectorAll('.js-reveal-item')) : [];
+        var allItems = itemsA.concat(itemsB);
+        var ITEM_DELAY = 110; /* ms between each item */
+
+        /* Step 1 — reveal all pros/cons sequentially */
+        allItems.forEach(function (item, i) {
+          setTimeout(function () {
+            item.classList.add('is-visible');
+          }, i * ITEM_DELAY);
+        });
+
+        var revealDone = allItems.length * ITEM_DELAY + 120;
+
+        /* Step 2 — dim Option A */
+        setTimeout(function () {
+          if (optionA) optionA.classList.add('is-dimmed');
+        }, revealDone);
+
+        /* Step 3 — highlight Option B with chosen badge + insight note */
+        setTimeout(function () {
+          if (optionB) optionB.classList.add('is-chosen');
+        }, revealDone + 220);
+      });
+    }, { threshold: 0.25 });
+
+    solutions.forEach(function (s) { io.observe(s); });
+
+    /* ── Image comparison (Solution 01) ─────────────────────────────── */
+    var imgComparisons = document.querySelectorAll('.js-img-comparison');
+    if (imgComparisons.length) {
+      var ioImg = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting || entry.target.dataset.animated) return;
+          entry.target.dataset.animated = '1';
+
+          var optA = entry.target.querySelector('.js-img-a');
+          var optB = entry.target.querySelector('.js-img-b');
+
+          /* data-chosen="a" means Option A is the winner; default is "b" */
+          var chosenSide = entry.target.dataset.chosen || 'b';
+          var chosenOpt  = chosenSide === 'a' ? optA : optB;
+          var dimmedOpt  = chosenSide === 'a' ? optB : optA;
+
+          /* Collect bullet items from both columns for sequential reveal */
+          var itemsA = optA ? Array.prototype.slice.call(optA.querySelectorAll('.js-reveal-item')) : [];
+          var itemsB = optB ? Array.prototype.slice.call(optB.querySelectorAll('.js-reveal-item')) : [];
+          var allItems = itemsA.concat(itemsB);
+          var ITEM_DELAY = 110; /* ms between each item */
+
+          /* Step 1 — reveal pros/cons sequentially under each image */
+          allItems.forEach(function (item, i) {
+            setTimeout(function () { item.classList.add('is-visible'); }, i * ITEM_DELAY);
+          });
+
+          var revealDone = allItems.length * ITEM_DELAY + 140;
+
+          /* Step 2 — dim the unchosen option */
+          setTimeout(function () {
+            if (dimmedOpt) dimmedOpt.classList.add('is-dimmed');
+          }, revealDone);
+
+          /* Step 3 — highlight chosen option and reveal sticker */
+          setTimeout(function () {
+            if (chosenOpt) chosenOpt.classList.add('is-chosen');
+          }, revealDone + 240);
+        });
+      }, { threshold: 0.25 });
+      imgComparisons.forEach(function (c) { ioImg.observe(c); });
+    }
+
+    /* ── Sidebar demo fade-in (drawback → mitigation) ───────────────── */
+    var sideDemos = document.querySelectorAll('.js-sidebar-demo');
+    if (sideDemos.length) {
+      var ioSDemo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting || entry.target.dataset.animated) return;
+          entry.target.dataset.animated = '1';
+          entry.target.style.opacity = '1';
+        });
+      }, { threshold: 0.3 });
+      sideDemos.forEach(function (d) { ioSDemo.observe(d); });
+    }
+
+  })();
+  </script>
+
+</body>
+</html>

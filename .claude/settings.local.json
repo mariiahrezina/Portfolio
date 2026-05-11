@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "WebFetch(domain:skills.sh)",
+      "Bash(npx skills:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/mariiahrezina/.nvm/versions/**)",
+      "Bash(command -v node)",
+      "Read(//opt/homebrew/Cellar/node/25.2.1/bin/**)",
+      "Read(//opt/**)",
+      "Bash(mv \"Calculate trip 1.png\" \"calculate-trip-1.png\")",
+      "Bash(mv \"Calculate trip 2.jpg\" \"calculate-trip-2.jpg\")",
+      "Bash(mv \"Calculate trip 3.jpg\" \"calculate-trip-3.jpg\")",
+      "Bash(mv \"Calculate trip 4.jpg\" \"calculate-trip-4.jpg\")",
+      "Bash(mv \"Verification 2 \\(video\\) .mov\" \"verification-2.mov\")",
+      "Bash(mv \"verification 1.jpg\" \"verification-1.jpg\")",
+      "Bash(xattr -l \"/Users/mariiahrezina/Library/Mobile Documents/com~apple~CloudDocs/Portfolio/Portfolio_skills/images/getmancar/hero.png\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:3000/images/getmancar/hero.png\")",
+      "Bash(curl -s -o /tmp/hero-test.png \"http://localhost:3000/images/getmancar/hero.png\")",
+      "Read(//tmp/**)",
+      "WebFetch(domain:www.figma.com)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:3000/case-optistream.html\")",
+      "Bash(xattr -l \"/Users/mariiahrezina/Library/Mobile Documents/com~apple~CloudDocs/Portfolio/Portfolio_skills/case-optistream.html\")",
+      "Bash(ls -lh \"/Users/mariiahrezina/Library/Mobile Documents/com~apple~CloudDocs/Portfolio/Portfolio_skills/\"*.html)",
+      "Bash(defaults read:*)",
+      "Bash(brctl download:*)",
+      "Bash(python3 -)",
+      "Bash(python3 -c ':*)",
+      "Bash(/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc --version)",
+      "Bash(npm --version)"
+    ]
+  }
+}
