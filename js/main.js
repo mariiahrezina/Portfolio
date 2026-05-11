@@ -531,63 +531,70 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('active')) close(); });
 })();
 
-// --- VIDEO LIGHTBOX ---
+// --- VIDEO in IMAGE LIGHTBOX ---
+// Reuses the existing .lightbox-overlay built by initLightbox.
+// A <video> is injected into that overlay; open/close mirrors image behaviour.
+// Listeners attach after initLightbox's, so our scrollTo fires last and wins.
 (function initVideoLightbox() {
   const videos = document.querySelectorAll('.js-lightbox-video');
   if (!videos.length) return;
 
-  // Build overlay once
-  const overlay = document.createElement('div');
-  overlay.className = 'video-lightbox-overlay';
-  overlay.setAttribute('role', 'dialog');
-  overlay.setAttribute('aria-modal', 'true');
+  const overlay = document.querySelector('.lightbox-overlay');
+  if (!overlay) return;
+
+  const img = overlay.querySelector('img');
 
   const vid = document.createElement('video');
-  vid.muted    = true;
-  vid.loop     = true;
+  vid.controls = true;
   vid.setAttribute('playsinline', '');
-
-  const closeBtn = document.createElement('button');
-  closeBtn.className = 'video-lightbox-close';
-  closeBtn.setAttribute('aria-label', 'Close');
-  closeBtn.innerHTML = '&#x2715;';
-
-  overlay.appendChild(vid);
-  overlay.appendChild(closeBtn);
-  document.body.appendChild(overlay);
+  overlay.insertBefore(vid, img);
 
   let scrollY = 0;
+  let isOpen  = false;
 
-  function open(src) {
+  function openVideo(src) {
+    isOpen = true;
+    img.style.display = 'none';
+    vid.style.display = 'block';
     vid.src = src;
     scrollY = window.scrollY;
-    document.body.style.overflow   = 'hidden';
-    document.body.style.position   = 'fixed';
-    document.body.style.top        = `-${scrollY}px`;
-    document.body.style.width      = '100%';
+    document.body.style.overflow = 'hidden';
+    document.body.style.top      = `-${scrollY}px`;
+    document.body.style.position = 'fixed';
+    document.body.style.width    = '100%';
     overlay.classList.add('active');
     vid.play().catch(() => {});
   }
 
-  function close() {
+  function closeVideo() {
+    if (!isOpen) return;
+    isOpen = false;
     overlay.classList.remove('active');
-    document.body.style.overflow   = '';
-    document.body.style.position   = '';
-    document.body.style.top        = '';
-    document.body.style.width      = '';
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top      = '';
+    document.body.style.width    = '';
     window.scrollTo({ top: scrollY, behavior: 'instant' });
-    setTimeout(() => { vid.src = ''; }, 230);
+    vid.pause();
+    setTimeout(() => {
+      vid.style.display = 'none';
+      vid.src           = '';
+      img.style.display = '';
+    }, 230);
   }
 
   videos.forEach(el => {
-    el.addEventListener('click', () => open(el.src));
+    el.addEventListener('click', () => {
+      const src = el.currentSrc || el.querySelector('source')?.src || '';
+      if (src) openVideo(src);
+    });
   });
 
-  closeBtn.addEventListener('click', close);
-  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && overlay.classList.contains('active')) close();
-  });
+  // Attach after initLightbox so closeVideo's scrollTo runs last (correct position wins).
+  // The isOpen guard makes these no-ops when images are showing.
+  overlay.querySelector('.lightbox-close').addEventListener('click', closeVideo);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeVideo(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
 })();
 
 // ============================================================

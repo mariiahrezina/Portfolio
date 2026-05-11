@@ -395,7 +395,7 @@ h1, h2, h3, h4 {
   background: rgba(248, 246, 241, 0.88);
   backdrop-filter: blur(16px) saturate(1.1);
   -webkit-backdrop-filter: blur(16px) saturate(1.1);
-  border: none;
+  border: 1px solid rgba(26, 25, 22, 0.06);
   border-radius: 20px;
   box-shadow: none;
 }
@@ -442,7 +442,7 @@ h1, h2, h3, h4 {
     background: rgba(248, 246, 241, 0.94);
     backdrop-filter: blur(18px) saturate(1.1);
     -webkit-backdrop-filter: blur(18px) saturate(1.1);
-    border-bottom: none;
+    border: 1px solid rgba(26, 25, 22, 0.06);
     box-shadow: none;
   }
 
@@ -634,6 +634,16 @@ h1, h2, h3, h4 {
   20%  { opacity: 1; transform: translateX(-50%) translateY(0); }
   80%  { opacity: 1; }
   to   { opacity: 0; }
+}
+
+/* On shorter desktop/laptop viewports the shuffle card (top: 50%+270px, ~92px tall)
+   would overlap the bottom-anchored hint. Switch to a top-anchored position that
+   always clears the shuffle card's bottom edge (~50% + 362px) by 10px. */
+@media (min-width: 769px) and (max-height: 820px) {
+  .drag-hint {
+    bottom: auto;
+    top: calc(50% + 372px);
+  }
 }
 
 /* --- 8. MOODBOARD CARDS --- */
@@ -1559,6 +1569,12 @@ h1, h2, h3, h4 {
   gap: 7px;
 }
 
+.tag-linebreak {
+  display: none;
+  flex-basis: 100%;
+  height: 0;
+}
+
 .tag-pink {
   font-size: 12px;
   font-weight: 500;
@@ -1882,7 +1898,7 @@ h1, h2, h3, h4 {
 /* 4-column meta inside overview */
 .overview-meta {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
 }
 
@@ -2357,6 +2373,18 @@ h1, h2, h3, h4 {
   cursor: default;
 }
 .lightbox-overlay.active img {
+  transform: scale(1);
+}
+.lightbox-overlay video {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 20px;
+  display: none;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.45);
+  transform: scale(0.96);
+  transition: transform 220ms ease;
+}
+.lightbox-overlay.active video {
   transform: scale(1);
 }
 .lightbox-close {
@@ -2868,6 +2896,9 @@ h1, h2, h3, h4 {
   /* Hide drag hint on mobile */
   .drag-hint { display: none; }
 
+  /* OptiStream card: force "AI" tag onto its own line */
+  .tag-linebreak { display: block; }
+
   /* ---------- Hide cards not shown on mobile ---------- */
   .js-player-card,
   .js-reading-card,
@@ -3078,6 +3109,10 @@ h1, h2, h3, h4 {
     padding: calc(var(--nav-height) + 44px) 24px 44px;
   }
 
+  .case-title {
+    font-size: 26px;
+  }
+
   .case-content {
     padding: 0 24px;
   }
@@ -3090,6 +3125,11 @@ h1, h2, h3, h4 {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
+
+  /* Pair similar-length content: My Role+Platform in row 1, Team+Timeline in row 2 */
+  .overview-meta-col:nth-child(2) { order: 3; }
+  .overview-meta-col:nth-child(3) { order: 4; }
+  .overview-meta-col:nth-child(4) { order: 2; }
 
   /* Before/After: fluid sizing on tablet (no fixed height) */
   .before-col .phone-frame,

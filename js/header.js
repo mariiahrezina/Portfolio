@@ -59,7 +59,7 @@
     menu.innerHTML =
       '<a class="nav-mobile-link js-mob-works"    href="#">work</a>'    +
       '<a class="nav-mobile-link js-mob-about"    href="#">about</a>'   +
-      '<a class="nav-mobile-link js-mob-cv"       href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener noreferrer">cv</a>' +
+      '<a class="nav-mobile-link js-mob-cv"       href="https://drive.google.com/file/d/1EJ774gCKRA43PGMiCuRVSAgigWc9Rduk/view?usp=sharing" target="_blank" rel="noopener noreferrer">cv</a>' +
       '<a class="nav-mobile-link js-mob-contacts" href="#">contacts</a>';
     nav.parentNode.insertBefore(menu, nav.nextSibling);
 
@@ -85,7 +85,7 @@
       if (isHome) {
         scrollToEl(document.getElementById('work'));
       } else {
-        window.location.href = 'index.html#work';
+        window.location.href = '/#work';
       }
     });
 
@@ -95,7 +95,7 @@
       if (isHome) {
         scrollToEl(document.getElementById('about'));
       } else {
-        window.location.href = 'index.html#about';
+        window.location.href = '/#about';
       }
     });
 
@@ -129,7 +129,7 @@
       if (isHome) {
         scrollToEl(document.getElementById('work'));
       } else {
-        window.location.href = 'index.html#work';
+        window.location.href = '/#work';
       }
     });
 
@@ -138,7 +138,7 @@
       if (isHome) {
         scrollToEl(document.getElementById('about'));
       } else {
-        window.location.href = 'index.html#about';
+        window.location.href = '/#about';
       }
     });
 
@@ -175,7 +175,7 @@
 
     window.addEventListener('scroll', applyActive, { passive: true });
 
-    // Handle hash on direct load (arriving via index.html#work from another page)
+    // Handle hash on direct load (arriving via /#work from another page)
     if (window.location.hash) {
       setTimeout(function () {
         var target = document.querySelector(window.location.hash);
