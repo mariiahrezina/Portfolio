@@ -17,20 +17,6 @@
   ─────────────────────────────────────────────────────────────────────── */
   var ALL_CASES = [
     {
-      id: 'storefront',
-      previewSrc:            'images/e-commerce/e-commerce-preview-desktop.png',
-      previewMobileSrc:      'images/e-commerce/e-commerce-preview-mobile.png',
-      previewObjectPosition: 'top',
-      tags: [
-        { text: 'Product Designer', cls: 'tag-pink' },
-        { text: 'E-commerce',       cls: 'tag-gray' },
-        { text: 'Web',              cls: 'tag-gray' },
-        { text: 'End-to-end',       cls: 'tag-gray' }
-      ],
-      title: 'Built a concert archive storefront, cutting discovery time for dedicated fans',
-      href:  'case-storefront.html'
-    },
-    {
       id: 'getmancar',
       images: [
         { src: 'images/getmancar/after-1.png',          alt: 'Redesigned onboarding' },
@@ -43,7 +29,7 @@
         { text: 'Mobility',      cls: 'tag-gray' }
       ],
       title: 'Carsharing app — Increasing first trip conversion',
-      href:  'case-getmancar.html'
+      href:  '/carsharing'
     },
     {
       id: 'optistream',
@@ -55,7 +41,21 @@
         { text: 'AI',             cls: 'tag-gray' }
       ],
       title: 'Making document review faster with AI',
-      href:  'case-optistream.html'
+      href:  '/optistream'
+    },
+    {
+      id: 'storefront',
+      previewSrc:            'images/e-commerce/e-commerce-preview-desktop.png',
+      previewMobileSrc:      'images/e-commerce/e-commerce-preview-mobile.png',
+      previewObjectPosition: 'top',
+      tags: [
+        { text: 'Product Designer', cls: 'tag-pink' },
+        { text: 'E-commerce',       cls: 'tag-gray' },
+        { text: 'Web',              cls: 'tag-gray' },
+        { text: 'End-to-end',       cls: 'tag-gray' }
+      ],
+      title: 'Built a concert archive storefront, cutting discovery time for dedicated fans',
+      href:  '/e-commerce'
     }
   ];
 

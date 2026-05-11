@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Natera OptiStream Case Study — Mariia Hrezina</title>
+  <title>AI Document Review</title>
   <meta name="description" content="End-to-end design of an AI-powered healthcare document processing platform — OptiStream by Natera.">
 
   <!-- Open Graph -->
   <meta property="og:type"        content="article">
-  <meta property="og:url"         content="https://mhrezina.com/case-optistream.html">
+  <meta property="og:url"         content="https://mhrezina.com/optistream">
   <meta property="og:title"       content="OptiStream — Making Document Review Faster with AI · Mariia Hrezina">
   <meta property="og:description" content="End-to-end design of an AI-powered healthcare document processing platform for Natera.">
   <meta property="og:image"       content="https://mhrezina.com/images/og-image.png">
@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="preload" as="image" href="images/optiSTREAM/Hero.png" fetchpriority="high">
+  <link rel="preload" as="image" href="images/optiSTREAM/Hero.jpg" fetchpriority="high">
 
   <style>
     /* ============================================================
@@ -427,6 +427,44 @@
     }
     .cine-lb-close:hover { opacity: 1; }
 
+    .cine-lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: rgba(255, 255, 255, 0.80);
+      font-size: 22px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      line-height: 1;
+      transition: background 0.18s, color 0.18s;
+      touch-action: manipulation;
+      flex-shrink: 0;
+    }
+    .cine-lb-nav:hover { background: rgba(255, 255, 255, 0.22); color: #fff; }
+    .cine-lb-prev { left: 20px; }
+    .cine-lb-next { right: 20px; }
+    @media (max-width: 640px) {
+      .cine-lightbox { padding: 20px 12px; }
+      .cine-lb-prev  { left: 4px; }
+      .cine-lb-next  { right: 4px; }
+      .cine-lb-nav   {
+        background: rgba(26, 25, 22, 0.55);
+        border-color: rgba(255, 255, 255, 0.12);
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        z-index: 10;
+      }
+    }
+
     /* ---- Mobile: static hero only ---- */
     @media (max-width: 640px) {
       .cinematic-scene  { display: block; }
@@ -475,12 +513,12 @@
       <a class="nav-link js-nav-works" href="#">works</a>
       <a class="nav-link js-nav-about" href="#">about</a>
     </div>
-    <a class="nav-logo js-nav-home" href="index.html">
+    <a class="nav-logo js-nav-home" href="/">
       <img src="images/Hero/Mariia.svg" alt="Mariia Hrezina" class="nav-logo-svg">
     </a>
     <div class="nav-right">
       <a class="nav-link js-nav-contacts" href="#">contacts</a>
-      <a class="nav-link" href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener">cv</a>
+      <a class="nav-link" href="https://drive.google.com/file/d/1EJ774gCKRA43PGMiCuRVSAgigWc9Rduk/view?usp=sharing" target="_blank" rel="noopener">cv</a>
     </div>
   </nav>
 
@@ -489,13 +527,13 @@
 
 
     <h1 id="heroTitle" class="case-title reveal">
-      Shifted manual workflows to AI-assisted review
+      Shifted manual workflows to AI‑assisted review
     </h1>
   </section>
 
   <!-- ============ FULL-WIDTH HERO IMAGE ============ -->
   <div class="case-hero-image">
-    <img id="heroImg" src="images/optiSTREAM/Hero.png" alt="OptiStream — hero image" decoding="async" style="max-height: none; object-fit: contain; opacity: 0; transition: opacity 0.35s ease;">
+    <img id="heroImg" src="images/optiSTREAM/Hero.jpg" alt="OptiStream — hero image" style="max-height: none; object-fit: contain; opacity: 0; transition: opacity 0.35s ease;">
   </div>
 
   <!-- ============ CASE CONTENT ============ -->
@@ -819,7 +857,9 @@
   <!-- Lightbox (fixed, outside content flow) -->
   <div class="cine-lightbox" id="cineLightbox" role="dialog" aria-modal="true">
     <button class="cine-lb-close" id="cineLbClose" aria-label="Close">✕</button>
+    <button class="cine-lb-nav cine-lb-prev" id="cineLbPrev" aria-label="Previous screen">‹</button>
     <img src="" alt="" id="cineLbImg">
+    <button class="cine-lb-nav cine-lb-next" id="cineLbNext" aria-label="Next screen">›</button>
   </div>
 
   <!-- Case switcher — rendered by shared component -->
@@ -843,7 +883,7 @@
       <div class="footer-right">
         <a href="mailto:mariia.hrezina@gmail.com" class="footer-email mobile">Email</a>
         <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://drive.google.com/file/d/1klCs2PK-_KOJNL5gTzBldAoeOR_LEwvj/view?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>
+        <a href="https://drive.google.com/file/d/1EJ774gCKRA43PGMiCuRVSAgigWc9Rduk/view?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>
       </div>
 
       <a href="https://www.linkedin.com/in/mhrezina/" target="_blank" rel="noopener noreferrer" class="contact-btn">
@@ -921,6 +961,59 @@
     var cards   = Array.prototype.slice.call(stage.querySelectorAll('.ss-card'));
     var total   = cards.length;
     var topIdx  = 0;   // index into cards[] of the current top card
+
+    // ── Lightbox state ────────────────────────────────────────────────
+    var lb      = document.getElementById('cineLightbox');
+    var lbImg   = document.getElementById('cineLbImg');
+    var lbClose = document.getElementById('cineLbClose');
+    var lbPrev  = document.getElementById('cineLbPrev');
+    var lbNext  = document.getElementById('cineLbNext');
+    var lbOpen  = false;
+    var lbIdx   = 0;   // index into cards[] shown in lightbox
+    var savedScrollY = 0;
+
+    function openLightbox(idx) {
+      lbIdx = ((idx % total) + total) % total;
+      var img = cards[lbIdx].querySelector('img');
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      if (!lbOpen) {
+        // Capture scroll position only on first open — navigating between
+        // images must not re-save, because window.scrollY is 0 while body is fixed
+        savedScrollY = window.scrollY;
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top      = '-' + savedScrollY + 'px';
+        document.body.style.width    = '100%';
+        lb.classList.add('lb-open');
+        lbOpen = true;
+      }
+    }
+
+    function closeLightbox() {
+      if (!lbOpen) return;
+      lb.classList.remove('lb-open');
+      lbOpen = false;
+      document.body.style.overflow  = '';
+      document.body.style.position  = '';
+      document.body.style.top       = '';
+      document.body.style.width     = '';
+      window.scrollTo({ top: savedScrollY, behavior: 'instant' });
+      setTimeout(function () { lbImg.src = ''; }, 300);
+    }
+
+    function lbGoTo(idx) { openLightbox(idx); }
+
+    if (lbClose) lbClose.addEventListener('click', closeLightbox);
+    if (lbPrev)  lbPrev.addEventListener('click',  function (e) { e.stopPropagation(); lbGoTo(lbIdx - 1); });
+    if (lbNext)  lbNext.addEventListener('click',  function (e) { e.stopPropagation(); lbGoTo(lbIdx + 1); });
+    if (lb)      lb.addEventListener('click',      function (e) { if (e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lbOpen) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  lbGoTo(lbIdx - 1);
+      if (e.key === 'ArrowRight') lbGoTo(lbIdx + 1);
+    });
 
     // ── Dynamic depths: Y offsets scale with stage height ─────────────
     // relPos 0 = top, 1 = first below, 2 = second below, 3+ = hidden.
@@ -1071,6 +1164,11 @@
           'transform 0.50s cubic-bezier(0.34, 1.48, 0.64, 1)';
         tc.style.transform =
           'translateY(0) scale(1) rotate(0deg)';
+
+        // Tap (< 10 px movement) → open lightbox at top card
+        if (Math.abs(dx) < 10 && Math.abs(curY - startY) < 10) {
+          openLightbox(topIdx);
+        }
       }
     }
 
@@ -1143,6 +1241,16 @@
       }
       prevTop = top;
     }
+
+    // Discard break points that fall immediately after a hyphen.
+    // The browser may split a compound like "AI-assisted" at the '-' during
+    // measurement, but we want the whole word to stay together so the natural
+    // word-wrap can choose a cleaner break point (at the preceding space).
+    breakPoints = breakPoints.filter(function (bp) {
+      var prev = bp - 1;
+      while (prev >= 0 && raw[prev] === ' ') prev--;
+      return raw[prev] !== '-';
+    });
 
     // Build line strings from the detected break positions
     var lineTexts = [];

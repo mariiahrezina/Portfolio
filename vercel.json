@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/case-getmancar.html",  "destination": "/carsharing", "permanent": true },
+    { "source": "/case-optistream.html", "destination": "/optistream", "permanent": true },
+    { "source": "/case-storefront.html", "destination": "/e-commerce", "permanent": true },
+    { "source": "/index.html",           "destination": "/",           "permanent": true }
+  ]
+}
