@@ -59,7 +59,7 @@
     menu.innerHTML =
       '<a class="nav-mobile-link js-mob-works"    href="#">work</a>'    +
       '<a class="nav-mobile-link js-mob-about"    href="#">about</a>'   +
-      '<a class="nav-mobile-link js-mob-cv"       href="https://drive.google.com/file/d/1EJ774gCKRA43PGMiCuRVSAgigWc9Rduk/view?usp=sharing" target="_blank" rel="noopener noreferrer">cv</a>' +
+      '<a class="nav-mobile-link js-mob-mentorship" href="#">mentor</a>' +
       '<a class="nav-mobile-link js-mob-contacts" href="#">contacts</a>';
     nav.parentNode.insertBefore(menu, nav.nextSibling);
 
@@ -99,16 +99,52 @@
       }
     });
 
+    menu.querySelector('.js-mob-mentorship')?.addEventListener('click', function (e) {
+      e.preventDefault();
+      closeMobileMenu();
+      if (isHome) {
+        holdActive('.js-nav-mentorship');
+        scrollToEl(document.getElementById('mentorship'));
+      } else {
+        window.location.href = '/#mentorship';
+      }
+    });
+
     menu.querySelector('.js-mob-contacts')?.addEventListener('click', function (e) {
       e.preventDefault();
       closeMobileMenu();
+      holdActive('.js-nav-contacts');
       scrollToEl(document.querySelector('.footer'));
     });
+  }
 
-    // cv opens in new tab — just close the menu
-    menu.querySelector('.js-mob-cv')?.addEventListener('click', function () {
-      closeMobileMenu();
-    });
+  // ── CLICK HOLD ───────────────────────────────────────────────────────
+  // Mentorship is the last section, so the page can't scroll far enough to
+  // bring it to the top: "mentorship" and "contacts" both land at the very
+  // bottom. After a nav click we keep the clicked item underlined until the
+  // smooth scroll settles and the visitor scrolls on their own.
+  var held = null;        // selector kept active after a click
+  var settling = false;   // true while the click-triggered scroll is running
+  var settleTimer = null;
+
+  function holdActive(selector) {
+    if (!isHome) return;
+    held = selector;
+    settling = true;
+    setActive(selector);
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(function () { settling = false; }, 900);
+  }
+
+  function onScrollForHold() {
+    if (!held) return;
+    if (settling) {
+      // still animating: push the settle point back until scrolling stops
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(function () { settling = false; }, 150);
+      return;
+    }
+    held = null;          // a scroll after settling = the visitor scrolled
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -142,25 +178,55 @@
       }
     });
 
+    document.querySelector('#nav .js-nav-mentorship')?.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (isHome) {
+        holdActive('.js-nav-mentorship');
+        scrollToEl(document.getElementById('mentorship'));
+      } else {
+        window.location.href = '/#mentorship';
+      }
+    });
+
     document.querySelector('#nav .js-nav-contacts')?.addEventListener('click', function (e) {
       e.preventDefault();
+      holdActive('.js-nav-contacts');
       scrollToEl(document.querySelector('.footer'));
     });
 
     // ── ACTIVE STATES: home page only ───────────────────────────────
     if (!isHome) return;
 
-    var workEl   = document.getElementById('work');
-    var aboutEl  = document.getElementById('about');
-    var footerEl = document.querySelector('.footer');
+    var workEl       = document.getElementById('work');
+    var aboutEl      = document.getElementById('about');
+    var mentorshipEl = document.getElementById('mentorship');
+    var footerEl     = document.querySelector('.footer');
     var intersecting = new Map();
 
+    function atPageBottom() {
+      return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+    }
+
+    // A section becomes active once its top rises above 60% of the screen,
+    // so it doesn't light up while the previous section still fills the view
+    var sections = [
+      [workEl,       '.js-nav-works'],
+      [aboutEl,      '.js-nav-about'],
+      [mentorshipEl, '.js-nav-mentorship']
+    ];
+
     function applyActive() {
+      if (held) { setActive(held); return; }
       if (window.scrollY < 80) { setActive(null); return; }
-      if (intersecting.get(footerEl)) { setActive('.js-nav-contacts'); return; }
-      if (intersecting.get(aboutEl))  { setActive('.js-nav-about');    return; }
-      if (intersecting.get(workEl))   { setActive('.js-nav-works');    return; }
-      setActive(null);
+      // The footer is visible together with Mentorship, so "contacts" only
+      // wins once the page is scrolled all the way down
+      if (intersecting.get(footerEl) && atPageBottom()) { setActive('.js-nav-contacts'); return; }
+      var line = window.innerHeight * 0.6;
+      var current = null;
+      sections.forEach(function (s) {
+        if (s[0] && s[0].getBoundingClientRect().top <= line) current = s[1];
+      });
+      setActive(current);
     }
 
     var navEl      = document.getElementById('nav');
@@ -171,14 +237,18 @@
       applyActive();
     }, { rootMargin: rootMargin, threshold: 0 });
 
-    [workEl, aboutEl, footerEl].forEach(function (el) { if (el) obs.observe(el); });
+    [workEl, aboutEl, mentorshipEl, footerEl].forEach(function (el) { if (el) obs.observe(el); });
 
-    window.addEventListener('scroll', applyActive, { passive: true });
+    window.addEventListener('scroll', function () {
+      onScrollForHold();
+      applyActive();
+    }, { passive: true });
 
     // Handle hash on direct load (arriving via /#work from another page)
     if (window.location.hash) {
       setTimeout(function () {
         var target = document.querySelector(window.location.hash);
+        if (window.location.hash === '#mentorship') holdActive('.js-nav-mentorship');
         if (target) scrollToEl(target);
       }, 50);
     }

@@ -235,12 +235,12 @@ h1, h2, h3, h4 {
 
 .section-label span {
   font-family: 'Nohemi', 'DM Sans', sans-serif;
-  font-size: 28px;
-  font-weight: 400;
-  letter-spacing: 0.025em;
-  line-height: 1.2;
+  font-size: clamp(40px, 5.5vw, 72px); /* same as .hero-headline */
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
   text-transform: none;
-  color: var(--text);
+  color: #3A3935; /* dark warm gray, softer than --text */
   white-space: nowrap;
 }
 
@@ -1337,14 +1337,14 @@ h1, h2, h3, h4 {
 
 /* --- 9. WORK SECTION --- */
 .work {
-  padding: 80px 48px 120px;
+  padding: 180px 48px 60px;
   max-width: var(--max-width);
   margin: 0 auto;
 }
 
 /* --- 10. ABOUT ME SECTION --- */
 .about-me {
-  padding: 120px 48px 120px;
+  padding: 60px 48px 120px;
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -1439,6 +1439,124 @@ h1, h2, h3, h4 {
 .about-images-triple .about-polaroid                    { width: 158px; }
 .about-images-triple .about-polaroid-img                { width: 138px; height: 138px; }
 .about-images-triple .about-polaroid + .about-polaroid  { margin-left: -28px; }
+
+/* --- 10b. MENTORSHIP SECTION (reuses About rows & polaroids) --- */
+.mentorship {
+  padding: 0 48px 120px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.mentorship .section-label {
+  margin-bottom: 40px;
+}
+
+.mentorship .about-text p + p {
+  margin-top: 16px;
+}
+
+/* Filled dark-gray pill (same gray as section headings) — the section's main action */
+.mentorship-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 28px;
+  background: #3A3935;
+  border: 1px solid #3A3935;
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.mentorship-cta:hover,
+.mentorship-cta:focus-visible {
+  background: var(--text);
+  border-color: var(--text);
+  transform: translateY(-1px);
+}
+
+.mentorship-memes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Taller bottom strip so a 2-line "pain" fits under the meme */
+.meme-polaroid {
+  padding-bottom: 56px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  outline: none;
+}
+
+.meme-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  background: var(--accent-pink-light);
+}
+
+.meme-pain {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 8px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif; /* body font, lighter weight */
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--text-muted);
+}
+
+.meme-hint {
+  margin-top: 36px;
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* Desktop (real hover): pains hidden until the meme is hovered/focused */
+@media (hover: hover) and (pointer: fine) {
+  .meme-pain {
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .meme-polaroid:hover,
+  .meme-polaroid:focus-visible {
+    transform: rotate(0deg) translateY(-8px) scale(1.04);
+    box-shadow: 0 14px 36px rgba(26,25,22,0.16), 0 2px 6px rgba(26,25,22,0.06);
+    z-index: 2;
+  }
+
+  .meme-polaroid:hover .meme-pain,
+  .meme-polaroid:focus-visible .meme-pain {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Touch: pains always visible, no hint needed */
+@media (hover: none), (pointer: coarse) {
+  .meme-hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meme-polaroid,
+  .meme-pain { transition: none; }
+}
 
 /* --- 11. CASE CARDS --- */
 .cards-grid {
@@ -2880,6 +2998,10 @@ h1, h2, h3, h4 {
     text-align: center;
   }
 
+  .section-label span {
+    font-size: 52px;
+  }
+
   .hero-headline {
     font-size: 52px;
     line-height: 0.96;
@@ -3081,7 +3203,7 @@ h1, h2, h3, h4 {
   }
 
   .work {
-    padding: 60px 24px 80px;
+    padding: 135px 24px 40px;
   }
 
   .cards-grid {
@@ -3177,7 +3299,7 @@ h1, h2, h3, h4 {
 
   /* ── About Me: single-column layout ── */
   .about-me {
-    padding: 80px 24px 80px;
+    padding: 40px 24px 80px;
   }
   .about-me .section-label {
     margin-bottom: 32px;
@@ -3237,6 +3359,37 @@ h1, h2, h3, h4 {
   .about-images-triple .about-polaroid + .about-polaroid {
     margin-left: -18px;
   }
+
+  /* Mentorship: same rhythm as About on mobile */
+  .mentorship {
+    padding: 0 24px 80px;
+  }
+  .mentorship .section-label {
+    margin-bottom: 32px;
+  }
+
+  /* Pains are always visible here, so polaroids don't overlap
+     (an overlap would cover the neighbour's caption) */
+  .mentorship .about-images-triple .about-polaroid {
+    width: 104px;
+    padding: 8px 8px 60px;
+  }
+  .mentorship .about-images-triple .about-polaroid-img {
+    width: 88px;
+    height: 88px;
+  }
+  .mentorship .about-images-triple .about-polaroid + .about-polaroid {
+    margin-left: 6px;
+  }
+  .meme-pain {
+    left: 5px;
+    right: 5px;
+    height: 50px;
+    font-size: 11px;
+  }
+  .meme-placeholder {
+    font-size: 34px;
+  }
 }
 
 /* ── Footer: mobile layout ── */
@@ -3262,7 +3415,8 @@ h1, h2, h3, h4 {
     gap: 14px;
   }
 
-  .hero-headline {
+  .hero-headline,
+  .section-label span {
     font-size: clamp(36px, 12vw, 52px);
   }
 
